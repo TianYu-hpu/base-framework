@@ -1,0 +1,37 @@
+HELP.md
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+*.iws
+*.ipr
+.idea/
+base-dao/base-dao.iml
+base-entity/.mvn
+base-entity/base-entity.iml
+base-service/.mvn/
+base-service/base-service.iml
+base-util/.mvn/
+base-util/base-util.iml
+base-web/.mvn/
+base-web/base-web.iml
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+### VS Code ###
+.vscode/
