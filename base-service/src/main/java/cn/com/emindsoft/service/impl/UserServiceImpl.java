@@ -2,16 +2,23 @@ package cn.com.emindsoft.service.impl;
 
 import cn.com.emindsoft.entity.po.User;
 import cn.com.emindsoft.entity.po.UserExample;
+import cn.com.emindsoft.enums.ExceptionEnum;
 import cn.com.emindsoft.mapper.UserMapper;
 import cn.com.emindsoft.service.UserService;
+import cn.com.emindsoft.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -60,6 +67,24 @@ public class UserServiceImpl implements UserService {
         } else {
             return result.get(0);
         }
+    }
+
+    @Override
+    public Map<String, Object> login(User user) {
+        if(Objects.isNull(user) || StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword())) {
+            return ResponseUtil.fail(ExceptionEnum.LOGIN_FAILED);
+        }
+        Subject currentUser = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+        currentUser.login(token);
+        Session session = currentUser.getSession();
+        return ResponseUtil.success(ExceptionEnum.LOGIN_SUCCESS);
+    }
+
+    @Override
+    public void logout() {
+        Subject currentUser = SecurityUtils.getSubject();
+        currentUser.logout();
     }
 
     private UserExample buildExample(User user) {

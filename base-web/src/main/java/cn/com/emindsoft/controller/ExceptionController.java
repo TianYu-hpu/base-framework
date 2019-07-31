@@ -1,7 +1,7 @@
 package cn.com.emindsoft.controller;
 
 import cn.com.emindsoft.exception.BookException;
-import cn.com.emindsoft.exception.ExceptionEnum;
+import cn.com.emindsoft.enums.ExceptionEnum;
 import cn.com.emindsoft.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.HttpMediaTypeException;

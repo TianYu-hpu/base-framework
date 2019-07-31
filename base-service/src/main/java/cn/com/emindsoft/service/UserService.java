@@ -3,6 +3,7 @@ package cn.com.emindsoft.service;
 import cn.com.emindsoft.entity.po.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author tianyu
@@ -48,4 +49,13 @@ public interface UserService extends BaseService<User>{
      * @return
      */
     User findByUserName(String userName);
+
+    /**
+     * 登录
+     * @param user
+     * @return
+     */
+    Map<String, Object> login(User user);
+
+    void logout();
 }

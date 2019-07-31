@@ -1,5 +1,6 @@
 package cn.com.emindsoft;
 
+import cn.com.emindsoft.shiro.CustomSessionManager;
 import cn.com.emindsoft.shiro.CustomShiroRealm;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,14 +128,14 @@ public class BaseWebApplication {
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         //散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        hashedCredentialsMatcher.setHashAlgorithmName("sha256");
         //散列的次数，比如散列两次，相当于 md5(md5(""));
-        hashedCredentialsMatcher.setHashIterations(2);
+        hashedCredentialsMatcher.setHashIterations(128);
         return hashedCredentialsMatcher;
     }
 
     @Bean
-    public CustomShiroRealm myShiroRealm() {
+    public CustomShiroRealm curtomeShiroRealm() {
         CustomShiroRealm myShiroRealm = new CustomShiroRealm();
         myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return myShiroRealm;
@@ -143,8 +145,25 @@ public class BaseWebApplication {
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm());
+        securityManager.setRealm(curtomeShiroRealm());
+        securityManager.setSessionManager();
         return securityManager;
+    }
+
+    @Bean
+    public CustomSessionManager customSessionManager() {
+        CustomSessionManager sessionManager = new CustomSessionManager();
+        sessionManager.setSessionDAO();
+        sessionManager.setGlobalSessionTimeout();
+        sessionManager.setSessionValidationInterval();
+        sessionManager.setSessionIdCookie();
+        sessionManager.setSessionIdCookieEnabled(true);
+    }
+
+    @Bean
+    public SimpleCookie simpleCookie() {
+       SimpleCookie simpleCookie = new SimpleCookie();
+       simpleCookie.setName();
     }
 
     /**
@@ -163,20 +182,20 @@ public class BaseWebApplication {
 
     @Bean(name = "simpleMappingExceptionResolver")
     public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver() {
-        SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
+        SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
         Properties mappings = new Properties();
         //数据库异常处理
         mappings.setProperty("DatabaseException", "databaseError");
         mappings.setProperty("UnauthorizedException", "/user/403");
         // None by default
-        r.setExceptionMappings(mappings);
+        exceptionResolver.setExceptionMappings(mappings);
         // No default
-        r.setDefaultErrorView("error");
+        exceptionResolver.setDefaultErrorView("error");
         // Default is "exception"
-        r.setExceptionAttribute("exception");
+        exceptionResolver.setExceptionAttribute("exception");
         // No default
-        r.setWarnLogCategory("example.MvcLogger");
-        return r;
+        //r.setWarnLogCategory("example.MvcLogger");
+        return exceptionResolver;
     }
 
 }

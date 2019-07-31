@@ -5,3 +5,6 @@ server:
 spring:
   profiles:
     active: dev
+
+urlSuffix: .html
+web.staticFile: .css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.htm,.html,.crx,.xpi,.exe,.ipa,.apk

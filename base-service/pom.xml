@@ -23,6 +23,16 @@
 			<artifactId>base-dao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>cn.com.emindsoft</groupId>
+            <artifactId>base-util</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+    </dependencies>
 
 </project>

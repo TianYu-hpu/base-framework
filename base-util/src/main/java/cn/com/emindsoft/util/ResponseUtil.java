@@ -1,6 +1,6 @@
 package cn.com.emindsoft.util;
 
-import cn.com.emindsoft.exception.ExceptionEnum;
+import cn.com.emindsoft.enums.ExceptionEnum;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +21,15 @@ public class ResponseUtil {
      */
     public static Map<String, Object> success(String code, String message) {
         return response(0, code, message);
+    }
+
+    /**
+     * 成功返回
+     * @param exceptionEnum
+     * @return
+     */
+    public static Map<String, Object> success(ExceptionEnum exceptionEnum) {
+        return response(0, exceptionEnum.getCode(), exceptionEnum.getDesc());
     }
 
     /**

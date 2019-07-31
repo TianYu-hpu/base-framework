@@ -52,8 +52,13 @@ public class CustomShiroRealm extends AuthorizingRealm {
         //如果身份认证的时候没有传入User对象，这里只能取到userName
         //也就是SimpleAuthenticationInfo构造的时候第一个参数传递需要User对象
         User user  = (User)principals.getPrimaryPrincipal();
+        User userFindByUsername = userService.findByUserName(user.getUsername());
+        if(userFindByUsername == null) {
+            return null;
+        }
         UserRole queryParam = new UserRole();
         queryParam.setUserId(user.getId());
+
         List<UserRole> userRoleList = userRoleService.findByExample(queryParam);
         for(UserRole userRole : userRoleList) {
             SysRole sysRoleQueryParam = new SysRole();
