@@ -5,7 +5,7 @@
 <generatorConfiguration>
     <context id="MybatisGenerator" targetRuntime="MyBatis3">
 
-        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
 
         <commentGenerator>
             <property name="suppressDate" value="true"/>
@@ -22,21 +22,21 @@
 
         <!--load targetProject from properties-->
         <javaModelGenerator targetPackage="cn.com.emindsoft.entity.po" targetProject="../base-entity/src/main/java">
-            <property name="enableSubPackages" value="true" />
-            <property name="trimStrings" value="true" />
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!--load targetProject from properties-->
         <sqlMapGenerator targetPackage="cn.com.emindsoft.mapper" targetProject="src/main/java">
-            <property name="enableSubPackages" value="true" />
+            <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!--load targetProject from properties-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.emindsoft.mapper"  targetProject="src/main/java">
-            <property name="enableSubPackages" value="true" />
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.emindsoft.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="user" domainObjectName="User">
+        <table tableName="user_role" domainObjectName="UserRole">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 

@@ -1,15 +1,12 @@
 package cn.com.emindsoft.util;
 
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.usermodel.Color;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.usermodel.extensions.XSSFCellBorder.BorderSide;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTColor;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTColorImpl;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
