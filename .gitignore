@@ -16,13 +16,17 @@ HELP.md
 *.ipr
 .idea/
 base-dao/base-dao.iml
+base-dao/target/
 base-entity/.mvn
+base-entity/target/
 base-entity/base-entity.iml
 base-service/.mvn/
+base-service/target/
 base-service/base-service.iml
-base-util/.mvn/
 base-util/base-util.iml
+base-util/target/
 base-web/.mvn/
+base-web/target/
 base-web/base-web.iml
 
 ### NetBeans ###
