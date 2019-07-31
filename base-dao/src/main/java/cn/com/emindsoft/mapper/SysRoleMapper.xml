@@ -106,10 +106,10 @@
     <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into sys_role (role, description, del_flag, 
+    insert into sys_role (id, role, description, del_flag,
       create_time, create_by, update_time, 
       update_by)
-    values (#{role,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{updateBy,jdbcType=VARCHAR})
   </insert>
@@ -119,6 +119,9 @@
     </selectKey>
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
       <if test="role != null" >
         role,
       </if>
@@ -142,6 +145,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
       <if test="role != null" >
         #{role,jdbcType=VARCHAR},
       </if>
