@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -40,8 +41,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByPrimaryKey(String id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public List<User> findByExample(User param) {
         return userMapper.selectByExample(buildExample(param));
+    }
+
+    @Override
+    public User findByUserName(String userName) {
+        User queryParam = new User();
+        queryParam.setUsername(userName);
+        List<User> result = findByExample(queryParam);
+        if(CollectionUtils.isEmpty(result)) {
+            return null;
+        } else {
+            return result.get(0);
+        }
     }
 
     private UserExample buildExample(User user) {

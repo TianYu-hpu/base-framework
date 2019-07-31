@@ -3,6 +3,10 @@ package cn.com.emindsoft.shiro;
 import cn.com.emindsoft.entity.po.SysPermission;
 import cn.com.emindsoft.entity.po.SysRole;
 import cn.com.emindsoft.entity.po.User;
+import cn.com.emindsoft.entity.po.UserRole;
+import cn.com.emindsoft.service.SysPermissionService;
+import cn.com.emindsoft.service.SysRoleService;
+import cn.com.emindsoft.service.UserRoleService;
 import cn.com.emindsoft.service.UserService;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +22,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author tianyu
@@ -27,6 +32,12 @@ import javax.annotation.Resource;
 public class CustomShiroRealm extends AuthorizingRealm {
     @Resource
     private UserService userService;
+    @Resource
+    private SysRoleService sysRoleService;
+    @Resource
+    private SysPermissionService sysPermissionService;
+    @Resource
+    private UserRoleService userRoleService;
 
     /**
      * 权限信息，包括角色以及权限
@@ -41,11 +52,21 @@ public class CustomShiroRealm extends AuthorizingRealm {
         //如果身份认证的时候没有传入User对象，这里只能取到userName
         //也就是SimpleAuthenticationInfo构造的时候第一个参数传递需要User对象
         User user  = (User)principals.getPrimaryPrincipal();
-
-        for(SysRole role : user.getRoleList()){
-            authorizationInfo.addRole(role.getRole());
-            for(SysPermission p:role.getPermissions()){
-                authorizationInfo.addStringPermission(p.getPermission());
+        UserRole queryParam = new UserRole();
+        queryParam.setUserId(user.getId());
+        List<UserRole> userRoleList = userRoleService.findByExample(queryParam);
+        for(UserRole userRole : userRoleList) {
+            SysRole sysRoleQueryParam = new SysRole();
+            sysRoleQueryParam.setId(userRole.getRoleId());
+            List<SysRole> roleList = sysRoleService.findByExample(sysRoleQueryParam);
+            for (SysRole role : roleList) {
+                authorizationInfo.addRole(role.getRole());
+                SysPermission sysPermissionQueryParam = new SysPermission();
+                sysPermissionQueryParam.setRoleId(role.getId());
+                List<SysPermission> sysPermissionList = sysPermissionService.findByExample(sysPermissionQueryParam);
+                for (SysPermission p : sysPermissionList) {
+                    authorizationInfo.addStringPermission(p.getPermission());
+                }
             }
         }
         return authorizationInfo;

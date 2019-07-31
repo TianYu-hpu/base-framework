@@ -1,6 +1,6 @@
 package cn.com.emindsoft.service;
 
-import cn.com.emindsoft.entity.po.User;
+import cn.com.emindsoft.entity.po.SysRole;
 
 import java.util.List;
 
@@ -9,23 +9,23 @@ import java.util.List;
  * @Date: 2019/5/17 23:02
  * @Description:
  */
-public interface UserService extends BaseService<User>{
+public interface SysRoleService extends BaseService<SysRole>{
 
     /**
      * 保存
-     * @param user
+     * @param record
      * @return
      */
     @Override
-    int save(User user);
+    int save(SysRole record);
 
     /**
      * 更新，必须有主键
-     * @param user
+     * @param record
      * @return
      */
     @Override
-    int update(User user);
+    int update(SysRole record);
 
 
     /**
@@ -33,19 +33,13 @@ public interface UserService extends BaseService<User>{
      * @param id
      * @return
      */
-    User findByPrimaryKey(String id);
+    SysRole findByPrimaryKey(String id);
     /**
      * 查询列表
      * @param param
      * @return
      */
     @Override
-    List<User> findByExample(User param);
+    List<SysRole> findByExample(SysRole param);
 
-    /**
-     * 根据用户名查找用户
-     * @param userName
-     * @return
-     */
-    User findByUserName(String userName);
 }
