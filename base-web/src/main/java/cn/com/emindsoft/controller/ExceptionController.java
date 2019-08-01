@@ -1,6 +1,6 @@
 package cn.com.emindsoft.controller;
 
-import cn.com.emindsoft.enums.ExceptionEnum;
+import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.HttpMediaTypeException;
@@ -30,7 +30,7 @@ public class ExceptionController {
     @ExceptionHandler({HttpMediaTypeException.class, HttpRequestMethodNotSupportedException.class})
     public Object mediaTypeException(HttpServletRequest request, HttpMediaTypeException cause) {
         log.error("Case unexpected BookException" + request.getRequestURL(), cause);
-        return ResponseUtil.fail(ExceptionEnum.UNSUPPORTED_OPR_ERR);
+        return ResponseUtil.fail(ResponseCodeEnum.UNSUPPORTED_OPR_ERR);
     }
 
     /**
@@ -43,6 +43,6 @@ public class ExceptionController {
     @ExceptionHandler(Throwable.class)
     public Object error(HttpServletRequest request, Throwable e) {
         log.error("Case unexpected system error" + request.getRequestURL(), e);
-        return ResponseUtil.fail(ExceptionEnum.SYS_ERR.getCode(), e.getMessage());
+        return ResponseUtil.fail(ResponseCodeEnum.SYS_ERR.getCode(), e.getMessage());
     }
 }

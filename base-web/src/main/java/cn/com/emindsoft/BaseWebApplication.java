@@ -1,5 +1,6 @@
 package cn.com.emindsoft;
 
+import cn.com.emindsoft.shiro.CustomSessionDao;
 import cn.com.emindsoft.shiro.CustomSessionManager;
 import cn.com.emindsoft.shiro.CustomShiroRealm;
 import com.zaxxer.hikari.HikariDataSource;
@@ -17,12 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import redis.clients.jedis.JedisPool;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -43,9 +43,21 @@ public class BaseWebApplication {
 
     @Autowired
     private HikariDataSource dataSource;
+    @Autowired
+    private CustomSessionDao customSessionDao;
+
 
     @Value("${spring.datasource.url}")
     private String jdbcUrl;
+
+    @Value("${session.sessionTimeout}")
+    private Integer sessionTimeout;
+
+    @Value("${session.sessionTimeoutClean}")
+    private Integer sessionTimeoutClean;
+
+    @Value("${cookie.name}")
+    private String cookieName;
 
     @Value("${spring.datasource.username}")
     private String username;
@@ -55,6 +67,12 @@ public class BaseWebApplication {
 
     @Value("${spring.datasource.hikari.maximum-pool-size}")
     private int maxPoolSize;
+
+    @Value("${spring.redis.host}")
+    private String redisHost;
+
+    @Value("${spring.redis.port}")
+    private int redisPort;
 
     public static void main(String[] args) {
         SpringApplication.run(BaseWebApplication.class, args);
@@ -87,6 +105,12 @@ public class BaseWebApplication {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    @Bean
+    public JedisPool jedisPool() {
+        JedisPool jedisPool = new JedisPool(redisHost, redisPort);
+        return jedisPool;
     }
 
     @Bean
@@ -129,9 +153,9 @@ public class BaseWebApplication {
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         //散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashAlgorithmName("sha256");
+        hashedCredentialsMatcher.setHashAlgorithmName("SHA-512");
         //散列的次数，比如散列两次，相当于 md5(md5(""));
-        hashedCredentialsMatcher.setHashIterations(128);
+        hashedCredentialsMatcher.setHashIterations(256);
         return hashedCredentialsMatcher;
     }
 
@@ -147,24 +171,26 @@ public class BaseWebApplication {
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(curtomeShiroRealm());
-        securityManager.setSessionManager();
+        securityManager.setSessionManager(customSessionManager());
         return securityManager;
     }
 
     @Bean
     public CustomSessionManager customSessionManager() {
         CustomSessionManager sessionManager = new CustomSessionManager();
-        sessionManager.setSessionDAO();
-        sessionManager.setGlobalSessionTimeout();
-        sessionManager.setSessionValidationInterval();
-        sessionManager.setSessionIdCookie();
+        sessionManager.setSessionDAO(customSessionDao);
+        sessionManager.setGlobalSessionTimeout(sessionTimeout);
+        sessionManager.setSessionValidationInterval(sessionTimeoutClean);
+        sessionManager.setSessionIdCookie(simpleCookie());
         sessionManager.setSessionIdCookieEnabled(true);
+        return sessionManager;
     }
 
     @Bean
     public SimpleCookie simpleCookie() {
        SimpleCookie simpleCookie = new SimpleCookie();
-       simpleCookie.setName();
+       simpleCookie.setName(cookieName);
+       return simpleCookie;
     }
 
     /**

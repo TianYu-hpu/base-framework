@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
@@ -21,7 +22,8 @@ import java.util.Set;
 @Component
 public class JedisUtils {
 
-    private static JedisPool jedisPool = SpringContextHolder.getBean(JedisPool.class);
+    @Autowired
+    private static JedisPool jedisPool;
 
     @Value("${redis.keyPrefix}}")
     public static String KEY_PREFIX;

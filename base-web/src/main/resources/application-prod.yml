@@ -1,10 +1,10 @@
   #db
   spring:
     datasource:
-      driver-class-name: com:mysql:jdbc:Driver
-      url: jdbc:mysql:///test?useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.0.30:3306/base_framework?useSSL=false
       username: root
-      password: emindsoft@123
+      password: EmindSoft@123
       type: com.zaxxer.hikari.HikariDataSource
       hikari:
         maximum-pool-size: 20
@@ -13,15 +13,17 @@
         max-wait: 5000
     thymeleaf:
       cache: false
+    redis:
+      host: 192.168.0.30
+      port: 6379
 
-    #mybatis的mapper配置文件
-    # mybatis配置文件所在路径
+  #mybatis的mapper配置文件
+  # mybatis配置文件所在路径
   mybatis:
-    config-location: classpath*:mybatis-config:xml
+    config-location: classpath*:mybatis-config.xml
     type-aliases-package: cn.com.emindsoft.entity.po
     # 所有的mapper映射文件
-    mapper-locations: classpath*:cn/com/emindsoft/mappers/*:xml
+    mapper-locations: classpath*:cn.com.emindsoft.mapper/*.xml
     configuration:
       map-underscore-to-camel-case: true
-  logging:
-    level: cn.com.emindsoft.mapper=debug
+

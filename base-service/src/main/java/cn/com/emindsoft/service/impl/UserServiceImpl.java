@@ -2,9 +2,10 @@ package cn.com.emindsoft.service.impl;
 
 import cn.com.emindsoft.entity.po.User;
 import cn.com.emindsoft.entity.po.UserExample;
-import cn.com.emindsoft.enums.ExceptionEnum;
+import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.mapper.UserMapper;
 import cn.com.emindsoft.service.UserService;
+import cn.com.emindsoft.util.PasswordUtil;
 import cn.com.emindsoft.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +37,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int save(User user) {
+        //增加salt
+        if(StringUtils.isEmpty(user.getSalt())) {
+            user.setSalt(PasswordUtil.generatetPrivateSalt());
+            user.setPassword(PasswordUtil.hashPassword(user.getSalt(), user.getPassword()));
+        }
         user.preInsertOrUpdate();
         return userMapper.insert(user);
     }
@@ -72,13 +78,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, Object> login(User user) {
         if(Objects.isNull(user) || StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword())) {
-            return ResponseUtil.fail(ExceptionEnum.LOGIN_FAILED);
+            return ResponseUtil.fail(ResponseCodeEnum.LOGIN_FAILED);
         }
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         currentUser.login(token);
         Session session = currentUser.getSession();
-        return ResponseUtil.success(ExceptionEnum.LOGIN_SUCCESS);
+        return ResponseUtil.success(ResponseCodeEnum.LOGIN_SUCCESS);
     }
 
     @Override

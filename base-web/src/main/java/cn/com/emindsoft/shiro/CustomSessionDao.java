@@ -34,11 +34,6 @@ public class CustomSessionDao extends AbstractSessionDAO implements SessionDAO {
 
     private String sessionKeyPrefix = "shiro_session_";
 
-    @Value("${web.view.prefix}")
-    private String webViewPrefix;
-    @Value("${web.view.suffix}")
-    private String webViewSuffix;
-
     @Override
     public void update(Session session) throws UnknownSessionException {
         if (session == null || session.getId() == null) {
@@ -52,10 +47,7 @@ public class CustomSessionDao extends AbstractSessionDAO implements SessionDAO {
             if (StringUtils.isStaticFile(uri)) {
                 return;
             }
-            // 如果是视图文件，则不更新SESSION
-            if (StringUtils.startsWith(uri, webViewPrefix) && StringUtils.endsWith(uri, webViewSuffix)) {
-                return;
-            }
+
         }
 
         Jedis jedis = null;
