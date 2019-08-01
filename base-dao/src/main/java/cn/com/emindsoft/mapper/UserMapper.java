@@ -2,8 +2,9 @@ package cn.com.emindsoft.mapper;
 
 import cn.com.emindsoft.entity.po.User;
 import cn.com.emindsoft.entity.po.UserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserMapper {
     int countByExample(UserExample example);

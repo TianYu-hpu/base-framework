@@ -2,8 +2,9 @@ package cn.com.emindsoft.mapper;
 
 import cn.com.emindsoft.entity.po.UserRole;
 import cn.com.emindsoft.entity.po.UserRoleExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserRoleMapper {
     int countByExample(UserRoleExample example);

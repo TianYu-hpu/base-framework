@@ -2,8 +2,9 @@ package cn.com.emindsoft.mapper;
 
 import cn.com.emindsoft.entity.po.SysRole;
 import cn.com.emindsoft.entity.po.SysRoleExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface SysRoleMapper {
     int countByExample(SysRoleExample example);

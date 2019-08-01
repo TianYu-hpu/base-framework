@@ -1,7 +1,6 @@
 package cn.com.emindsoft.entity.vo;
 
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * @Auther: tianyu

@@ -1,6 +1,5 @@
 package cn.com.emindsoft.controller;
 
-import cn.com.emindsoft.exception.BookException;
 import cn.com.emindsoft.enums.ExceptionEnum;
 import cn.com.emindsoft.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -20,19 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 @Slf4j
 public class ExceptionController {
-
-    /**
-     * BookException异常处理
-     * @param request
-     * @param cause
-     * @return
-     */
-    @ResponseBody
-    @ExceptionHandler(BookException.class)
-    public Object BookException(HttpServletRequest request, BookException cause) {
-        log.error("Case unexpected BookException for " + request.getRequestURL(), cause);
-        return ResponseUtil.fail(cause.getCode(), cause.getMessage());
-    }
 
     /**
      * 请求内容类型不支持异常处理

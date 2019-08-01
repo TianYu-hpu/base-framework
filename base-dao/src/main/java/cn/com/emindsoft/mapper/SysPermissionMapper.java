@@ -2,8 +2,9 @@ package cn.com.emindsoft.mapper;
 
 import cn.com.emindsoft.entity.po.SysPermission;
 import cn.com.emindsoft.entity.po.SysPermissionExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface SysPermissionMapper {
     int countByExample(SysPermissionExample example);
