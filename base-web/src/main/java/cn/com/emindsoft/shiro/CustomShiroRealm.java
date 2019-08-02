@@ -8,12 +8,10 @@ import cn.com.emindsoft.service.SysPermissionService;
 import cn.com.emindsoft.service.SysRoleService;
 import cn.com.emindsoft.service.UserRoleService;
 import cn.com.emindsoft.service.UserService;
+import cn.com.emindsoft.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -24,12 +22,14 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;
 
+
 /**
  * @author tianyu
  */
 @Component
 @Slf4j
 public class CustomShiroRealm extends AuthorizingRealm {
+
     @Resource
     private UserService userService;
     @Resource
@@ -88,14 +88,17 @@ public class CustomShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         log.info("MyShiroRealm.doGetAuthenticationInfo()");
         //获取用户的输入的账号.
-        String userName = (String)token.getPrincipal();
+        String username = (String)token.getPrincipal();
+        if(StringUtils.isEmpty(username)) {
+            throw new UnknownAccountException("账户不存在");
+        }
         log.info("credential:{}", token.getCredentials());
         //通过username从数据库中查找 User对象.
         //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
-        User user = userService.findByUserName(userName);
+        User user = userService.findByUserName(username);
         log.info("----->>user="+ JSON.toJSONString(user));
         if(user == null){
-            return null;
+            throw new UnknownAccountException("账户不存在");
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 //这里传入的是user对象，比对的是用户名，直接传入用户名也没错，但是在授权部分就需要自己重新从数据库里取权限

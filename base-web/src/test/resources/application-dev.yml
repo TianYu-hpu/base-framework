@@ -2,7 +2,7 @@
   spring:
     datasource:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.0.30:3306/base_framework?useSSL=false
+      url: jdbc:mysql://192.168.0.35:3306/base_framework?useSSL=false
       username: root
       password: EmindSoft@123
       type: com.zaxxer.hikari.HikariDataSource
@@ -14,9 +14,22 @@
     thymeleaf:
       cache: false
     redis:
-      host: 192.168.0.30
+      host: 192.168.0.35
       port: 6379
-      database: 0
+    resources:
+        static-locations: classpath:/statics/,classpath:/views/
+    http:
+      encoding:
+        force: true
+        charset: UTF-8
+        enabled: true
+      multipart:
+        max-file-size: 200MB
+        max-request-size: 200MB
+        enabled: true
+    jmx:
+      enabled: false
+
 
   #mybatis的mapper配置文件
   # mybatis配置文件所在路径
@@ -27,3 +40,10 @@
     mapper-locations: classpath*:cn.com.emindsoft.mapper/*.xml
     configuration:
       map-underscore-to-camel-case: true
+
+  swagger:
+    enable: true
+
+  sms:
+     key: LTAIe0TCR2QsDYQK
+     sec: 8eWeg3W5T0q4bNefWIhT9i9UY4Cb1K

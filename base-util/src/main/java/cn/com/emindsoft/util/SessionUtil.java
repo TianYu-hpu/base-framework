@@ -23,7 +23,7 @@ public class SessionUtil {
      * @param request
      */
     public static void setCurrentUser(HttpServletRequest request, User user) {
-        setAttribute(request, Constant.SESSION_USERNAME, user.getUsername());
+        setAttribute(request, ConfigConstant.SESSION_USERNAME, user.getUsername());
         log.info("当前登录用户 用户名:[{}] 登录时间:[{}]", user.getUsername(), DateUtils.formatNowToFullFormat());
     }
 
@@ -33,7 +33,7 @@ public class SessionUtil {
      * @return username and sessionId
      */
     public static String getCurrentUser(HttpServletRequest request) {
-        String username = (String) getAttribute(request, Constant.SESSION_USERNAME);
+        String username = (String) getAttribute(request, ConfigConstant.SESSION_USERNAME);
         String sessionId = getSessionId(request);
         StringBuffer sb = new StringBuffer();
         sb.append("username=");
@@ -49,7 +49,7 @@ public class SessionUtil {
      * @return username
      */
     public static String getUsernameOfCurrentUser(HttpServletRequest request) {
-        String username = (String) getAttribute(request, Constant.SESSION_USERNAME);
+        String username = (String) getAttribute(request, ConfigConstant.SESSION_USERNAME);
         String sessionId = getSessionId(request);
         StringBuffer sb = new StringBuffer();
         sb.append("username=");

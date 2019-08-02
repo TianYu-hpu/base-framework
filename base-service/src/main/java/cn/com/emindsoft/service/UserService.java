@@ -57,5 +57,9 @@ public interface UserService extends BaseService<User>{
      */
     Map<String, Object> login(User user);
 
-    void logout();
+    /**
+     * 退出
+     * @return
+     */
+    Map<String, Object> logout();
 }

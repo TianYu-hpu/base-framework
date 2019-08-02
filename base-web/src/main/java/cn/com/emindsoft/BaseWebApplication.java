@@ -1,12 +1,11 @@
 package cn.com.emindsoft;
 
-import cn.com.emindsoft.shiro.CustomSessionDao;
-import cn.com.emindsoft.shiro.CustomSessionManager;
-import cn.com.emindsoft.shiro.CustomShiroRealm;
+import cn.com.emindsoft.shiro.*;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -50,13 +49,7 @@ public class BaseWebApplication {
     @Value("${spring.datasource.url}")
     private String jdbcUrl;
 
-    @Value("${session.sessionTimeout}")
-    private Integer sessionTimeout;
-
-    @Value("${session.sessionTimeoutClean}")
-    private Integer sessionTimeoutClean;
-
-    @Value("${cookie.name}")
+    @Value("${server.servlet.session.cookie.name}")
     private String cookieName;
 
     @Value("${spring.datasource.username}")
@@ -98,19 +91,12 @@ public class BaseWebApplication {
     public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-
         try {
             return bean.getObject();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    }
-
-    @Bean
-    public JedisPool jedisPool() {
-        JedisPool jedisPool = new JedisPool(redisHost, redisPort);
-        return jedisPool;
     }
 
     @Bean
@@ -150,8 +136,8 @@ public class BaseWebApplication {
      * @return
      */
     @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+    public CustomHashedCredentialsMatcher hashedCredentialsMatcher() {
+        CustomHashedCredentialsMatcher hashedCredentialsMatcher = new CustomHashedCredentialsMatcher(jedisCacheManager());
         //散列算法:这里使用MD5算法;
         hashedCredentialsMatcher.setHashAlgorithmName("SHA-512");
         //散列的次数，比如散列两次，相当于 md5(md5(""));
@@ -172,18 +158,31 @@ public class BaseWebApplication {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(curtomeShiroRealm());
         securityManager.setSessionManager(customSessionManager());
+        JedisCacheManager cacheManager = new JedisCacheManager();
+        cacheManager.setCacheKeyPrefix("base_framework_");
+        securityManager.setCacheManager(cacheManager);
         return securityManager;
+    }
+
+    @Bean
+    public JedisCacheManager jedisCacheManager() {
+        JedisCacheManager cacheManager = new JedisCacheManager();
+        return cacheManager;
     }
 
     @Bean
     public CustomSessionManager customSessionManager() {
         CustomSessionManager sessionManager = new CustomSessionManager();
         sessionManager.setSessionDAO(customSessionDao);
-        sessionManager.setGlobalSessionTimeout(sessionTimeout);
-        sessionManager.setSessionValidationInterval(sessionTimeoutClean);
         sessionManager.setSessionIdCookie(simpleCookie());
         sessionManager.setSessionIdCookieEnabled(true);
+        sessionManager.setCacheManager(jedisCacheManager());
         return sessionManager;
+    }
+
+    @Bean
+    public JedisPool jedisPool() {
+        return new JedisPool(redisHost, redisPort);
     }
 
     @Bean

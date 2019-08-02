@@ -41,8 +41,12 @@ public enum ResponseCodeEnum implements BaseCodeEnum<ResponseCodeEnum, String>{
      */
     LOGIN_FAILED("02001", "用户名或密码错误"),
     LOGIN_SUCCESS("02002", "登录成功"),
+
     ACCOUNT_ALREADY_EXISTS("02003", "账户已存在"),
     REGISTER_SUCCESS("02004", "注册成功"),
+    LOGOUT_SUCCESS("02005", "注销成功"),
+    ACCOUNT_NOT_EXISTS("02006", "账户不存在"),
+    LOGIN_FAILED_MANY_TIMES("02007", "登录失败次数过多"),
 
     /**
      * 业务类 03
@@ -56,7 +60,6 @@ public enum ResponseCodeEnum implements BaseCodeEnum<ResponseCodeEnum, String>{
      * 财务类
      */
     REQUESTNO_EXIST("09001", "同一来源的付款请求号不可重复");
-
     private String code;
     private String desc;
 

@@ -1,14 +1,12 @@
 
 server:
   port: 8080
+  servlet:
+    session:
+      timeout: 60m
+      cookie:
+        name: base-framework
 
 spring:
   profiles:
     active: dev
-
-urlSuffix: .html
-web.staticFile: .css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.htm,.html,.crx,.xpi,.exe,.ipa,.apk
-
-session.sessionTimeout: 1800000
-session.sessionTimeoutClean: 120000
-cookie.name: base.framework.id

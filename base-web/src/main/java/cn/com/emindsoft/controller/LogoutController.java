@@ -1,9 +1,6 @@
 package cn.com.emindsoft.controller;
 
-import cn.com.emindsoft.entity.po.User;
-import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.service.UserService;
-import cn.com.emindsoft.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
@@ -22,19 +19,14 @@ import java.util.Map;
 @Controller
 @ResponseBody
 @RefreshScope
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("")
+public class LogoutController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/register")
-    public Map<String,Object> register(User user) {
-        User result = userService.findByUserName(user.getUsername());
-        if(result != null) {
-            ResponseUtil.fail(ResponseCodeEnum.ACCOUNT_ALREADY_EXISTS);
-        }
-        userService.save(user);
-        return ResponseUtil.success(ResponseCodeEnum.REGISTER_SUCCESS);
+    @GetMapping("/logout")
+    public Map<String,Object> logout() {
+        return userService.logout();
     }
 }

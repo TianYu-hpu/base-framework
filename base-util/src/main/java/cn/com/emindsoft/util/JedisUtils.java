@@ -6,7 +6,7 @@ import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisException;
@@ -19,21 +19,22 @@ import java.util.Set;
  * @author tianyu
  */
 @Slf4j
-@Component
+@Service
 public class JedisUtils {
 
-    @Autowired
     private static JedisPool jedisPool;
 
-    @Value("${redis.keyPrefix}}")
-    public static String KEY_PREFIX;
+    @Autowired
+    public void setJedisPool(JedisPool jedisPool) {
+        JedisUtils.jedisPool = jedisPool;
+    }
 
     /**
      * 获取缓存
      * @param key 键
      * @return 值
      */
-    public static String get(String key) {
+     public static String get(String key) {
         String value = null;
         Jedis jedis = null;
         try {
@@ -56,7 +57,7 @@ public class JedisUtils {
      * @param key 键
      * @return 值
      */
-    public static Object getObject(String key) {
+     public static Object getObject(String key) {
         Object value = null;
         Jedis jedis = null;
         try {
@@ -80,7 +81,7 @@ public class JedisUtils {
      * @param cacheSeconds 超时时间，0为不超时
      * @return
      */
-    public static String set(String key, String value, int cacheSeconds) {
+     public static String set(String key, String value, int cacheSeconds) {
         String result = null;
         Jedis jedis = null;
         try {
@@ -105,7 +106,7 @@ public class JedisUtils {
      * @param cacheSeconds 超时时间，0为不超时
      * @return
      */
-    public static String setObject(String key, Object value, int cacheSeconds) {
+     public static String setObject(String key, Object value, int cacheSeconds) {
         String result = null;
         Jedis jedis = null;
         try {
@@ -128,7 +129,7 @@ public class JedisUtils {
      * @param key 键
      * @return 值
      */
-    public static List<String> getList(String key) {
+     public static List<String> getList(String key) {
         List<String> value = null;
         Jedis jedis = null;
         try {
@@ -150,7 +151,7 @@ public class JedisUtils {
      * @param key 键
      * @return 值
      */
-    public static List<Object> getObjectList(String key) {
+     public static List<Object> getObjectList(String key) {
         List<Object> value = null;
         Jedis jedis = null;
         try {
@@ -178,7 +179,7 @@ public class JedisUtils {
      * @param cacheSeconds 超时时间，0为不超时
      * @return
      */
-    public static long setList(String key, List<String> value, int cacheSeconds) {
+     public static long setList(String key, List<String> value, int cacheSeconds) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -206,7 +207,7 @@ public class JedisUtils {
      * @param cacheSeconds 超时时间，0为不超时
      * @return
      */
-    public static long setObjectList(String key, List<Object> value, int cacheSeconds) {
+     public static long setObjectList(String key, List<Object> value, int cacheSeconds) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -237,7 +238,7 @@ public class JedisUtils {
      * @param value 值
      * @return
      */
-    public static long listAdd(String key, String... value) {
+     public static long listAdd(String key, String... value) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -258,7 +259,7 @@ public class JedisUtils {
      * @param value 值
      * @return
      */
-    public static long listObjectAdd(String key, Object... value) {
+     public static long listObjectAdd(String key, Object... value) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -282,7 +283,7 @@ public class JedisUtils {
      * @param key 键
      * @return 值
      */
-    public static Set<String> getSet(String key) {
+     public static Set<String> getSet(String key) {
         Set<String> value = null;
         Jedis jedis = null;
         try {
@@ -304,7 +305,7 @@ public class JedisUtils {
      * @param key 键
      * @return 值
      */
-    public static Set<Object> getObjectSet(String key) {
+     public static Set<Object> getObjectSet(String key) {
         Set<Object> value = null;
         Jedis jedis = null;
         try {
@@ -332,7 +333,7 @@ public class JedisUtils {
      * @param cacheSeconds 超时时间，0为不超时
      * @return
      */
-    public static long setSet(String key, Set<String> value, int cacheSeconds) {
+     public static long setSet(String key, Set<String> value, int cacheSeconds) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -360,7 +361,7 @@ public class JedisUtils {
      * @param cacheSeconds 超时时间，0为不超时
      * @return
      */
-    public static long setObjectSet(String key, Set<Object> value, int cacheSeconds) {
+     public static long setObjectSet(String key, Set<Object> value, int cacheSeconds) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -391,7 +392,7 @@ public class JedisUtils {
      * @param value 值
      * @return
      */
-    public static long setSetAdd(String key, String... value) {
+     public static long setSetAdd(String key, String... value) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -412,7 +413,7 @@ public class JedisUtils {
      * @param value 值
      * @return
      */
-    public static long setSetObjectAdd(String key, Object... value) {
+     public static long setSetObjectAdd(String key, Object... value) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -436,7 +437,7 @@ public class JedisUtils {
      * @param key 键
      * @return 值
      */
-    public static Map<String, String> getMap(String key) {
+     public static Map<String, String> getMap(String key) {
         Map<String, String> value = null;
         Jedis jedis = null;
         try {
@@ -458,7 +459,7 @@ public class JedisUtils {
      * @param key 键
      * @return 值
      */
-    public static Map<String, Object> getObjectMap(String key) {
+     public static Map<String, Object> getObjectMap(String key) {
         Map<String, Object> value = null;
         Jedis jedis = null;
         try {
@@ -486,7 +487,7 @@ public class JedisUtils {
      * @param cacheSeconds 超时时间，0为不超时
      * @return
      */
-    public static String setMap(String key, Map<String, String> value, int cacheSeconds) {
+     public static String setMap(String key, Map<String, String> value, int cacheSeconds) {
         String result = null;
         Jedis jedis = null;
         try {
@@ -514,7 +515,7 @@ public class JedisUtils {
      * @param cacheSeconds 超时时间，0为不超时
      * @return
      */
-    public static String setObjectMap(String key, Map<String, Object> value, int cacheSeconds) {
+     public static String setObjectMap(String key, Map<String, Object> value, int cacheSeconds) {
         String result = null;
         Jedis jedis = null;
         try {
@@ -545,7 +546,7 @@ public class JedisUtils {
      * @param value 值
      * @return
      */
-    public static String mapPut(String key, Map<String, String> value) {
+     public static String mapPut(String key, Map<String, String> value) {
         String result = null;
         Jedis jedis = null;
         try {
@@ -566,7 +567,7 @@ public class JedisUtils {
      * @param value 值
      * @return
      */
-    public static String mapObjectPut(String key, Map<String, Object> value) {
+     public static String mapObjectPut(String key, Map<String, Object> value) {
         String result = null;
         Jedis jedis = null;
         try {
@@ -591,7 +592,7 @@ public class JedisUtils {
      * @param mapKey 值
      * @return
      */
-    public static long mapRemove(String key, String mapKey) {
+     public static long mapRemove(String key, String mapKey) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -612,7 +613,7 @@ public class JedisUtils {
      * @param mapKey 值
      * @return
      */
-    public static long mapObjectRemove(String key, String mapKey) {
+     public static long mapObjectRemove(String key, String mapKey) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -633,7 +634,7 @@ public class JedisUtils {
      * @param mapKey 值
      * @return
      */
-    public static boolean mapExists(String key, String mapKey) {
+     public static boolean mapExists(String key, String mapKey) {
         boolean result = false;
         Jedis jedis = null;
         try {
@@ -654,7 +655,7 @@ public class JedisUtils {
      * @param mapKey 值
      * @return
      */
-    public static boolean mapObjectExists(String key, String mapKey) {
+     public static boolean mapObjectExists(String key, String mapKey) {
         boolean result = false;
         Jedis jedis = null;
         try {
@@ -674,7 +675,7 @@ public class JedisUtils {
      * @param key 键
      * @return
      */
-    public static long del(String key) {
+     public static long del(String key) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -698,7 +699,7 @@ public class JedisUtils {
      * @param key 键
      * @return
      */
-    public static long delObject(String key) {
+     public static long delObject(String key) {
         long result = 0;
         Jedis jedis = null;
         try {
@@ -722,7 +723,7 @@ public class JedisUtils {
      * @param key 键
      * @return
      */
-    public static boolean exists(String key) {
+     public static boolean exists(String key) {
         boolean result = false;
         Jedis jedis = null;
         try {
@@ -742,7 +743,7 @@ public class JedisUtils {
      * @param key 键
      * @return
      */
-    public static boolean existsObject(String key) {
+     public static boolean existsObject(String key) {
         boolean result = false;
         Jedis jedis = null;
         try {
@@ -762,13 +763,12 @@ public class JedisUtils {
      * @return
      * @throws JedisException
      */
-    public static Jedis getResource() throws JedisException {
+     public static Jedis getResource() throws JedisException {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
-//			log.debug("getResource.", jedis);
         } catch (JedisException e) {
-            log.warn("getResource.", e);
+            log.warn("getResource:{}", e);
             returnBrokenResource(jedis);
             throw e;
         }
@@ -779,7 +779,7 @@ public class JedisUtils {
      * 归还资源
      * @param jedis
      */
-    public static void returnBrokenResource(Jedis jedis) {
+     public static void returnBrokenResource(Jedis jedis) {
         if (jedis != null) {
             jedisPool.returnBrokenResource(jedis);
         }
@@ -789,7 +789,7 @@ public class JedisUtils {
      * 释放资源
      * @param jedis
      */
-    public static void returnResource(Jedis jedis) {
+     public static void returnResource(Jedis jedis) {
         if (jedis != null) {
             jedisPool.returnResource(jedis);
         }
@@ -800,7 +800,7 @@ public class JedisUtils {
      * @param object
      * @return
      */
-    public static byte[] getBytesKey(Object object){
+     public static byte[] getBytesKey(Object object){
         if(object instanceof String){
             return StringUtils.getBytes((String)object);
         }else{
@@ -813,12 +813,12 @@ public class JedisUtils {
      * @param key
      * @return
      */
-    public static Object getObjectKey(byte[] key){
+     public static Object getObjectKey(byte[] key){
         try{
             return StringUtils.toString(key);
         }catch(UnsupportedOperationException uoe){
             try{
-                return JedisUtils.toObject(key);
+                return toObject(key);
             }catch(UnsupportedOperationException uoe2){
                 uoe2.printStackTrace();
             }
@@ -831,7 +831,7 @@ public class JedisUtils {
      * @param object
      * @return
      */
-    public static byte[] toBytes(Object object){
+     public static byte[] toBytes(Object object){
         return ObjectUtils.serialize(object);
     }
 
@@ -840,7 +840,7 @@ public class JedisUtils {
      * @param bytes
      * @return
      */
-    public static Object toObject(byte[] bytes){
+     public static Object toObject(byte[] bytes){
         return ObjectUtils.unserialize(bytes);
     }
 

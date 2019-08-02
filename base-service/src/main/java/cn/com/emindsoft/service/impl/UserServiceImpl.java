@@ -10,6 +10,9 @@ import cn.com.emindsoft.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -17,6 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
@@ -80,17 +86,28 @@ public class UserServiceImpl implements UserService {
         if(Objects.isNull(user) || StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword())) {
             return ResponseUtil.fail(ResponseCodeEnum.LOGIN_FAILED);
         }
-        Subject currentUser = SecurityUtils.getSubject();
+        Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
-        currentUser.login(token);
-        Session session = currentUser.getSession();
+        try {
+            subject.login(token);
+        } catch (IncorrectCredentialsException ice) {
+            return ResponseUtil.fail(ResponseCodeEnum.LOGIN_FAILED);
+        } catch (UnknownAccountException uae) {
+            return ResponseUtil.fail(ResponseCodeEnum.LOGIN_FAILED);
+        } catch (ExcessiveAttemptsException eae) {
+           return ResponseUtil.fail(ResponseCodeEnum.LOGIN_FAILED_MANY_TIMES);
+        }
+        User loginUser = findByUserName(user.getUsername());
+        subject.getSession().setAttribute("user", loginUser);
+
         return ResponseUtil.success(ResponseCodeEnum.LOGIN_SUCCESS);
     }
 
     @Override
-    public void logout() {
+    public Map<String, Object> logout() {
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.logout();
+        return ResponseUtil.success(ResponseCodeEnum.LOGOUT_SUCCESS);
     }
 
     private UserExample buildExample(User user) {

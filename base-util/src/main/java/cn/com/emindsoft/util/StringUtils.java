@@ -24,7 +24,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 判断访问URI是否是静态文件请求
      * @throws Exception
      */
-    public static boolean isStaticFile(String uri){
+    public static boolean isStaticFile(String uri) {
         if (staticFiles == null){
             try {
                 throw new Exception("检测到“app.properties”中没有配置“web.staticFile”属性。配置示例：\n#静态文件后缀\n"
