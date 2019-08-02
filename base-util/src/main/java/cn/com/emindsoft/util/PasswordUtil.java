@@ -3,6 +3,7 @@ package cn.com.emindsoft.util;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.HashRequest;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
 /**
@@ -22,8 +23,9 @@ public class PasswordUtil {
 	 */
 	public static String hashPassword(String plainPassword, String salt) {
 		DefaultHashService hashService = new DefaultHashService();
+		new SimpleHash("SHA-512", plainPassword, salt, 256);
 		HashRequest request = new HashRequest.Builder().setAlgorithmName("SHA-512")
-				.setSource(ByteSource.Util.bytes(plainPassword)).setSalt(ByteSource.Util.bytes(salt.getBytes()))
+				.setSource(ByteSource.Util.bytes(plainPassword)).setSalt(ByteSource.Util.bytes(salt))
 				.setIterations(256).build();
 		String hex = hashService.computeHash(request).toHex();
 		return hex;
