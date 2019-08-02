@@ -69,6 +69,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectByExample(buildExample(param));
     }
 
+    /**
+     * 根据用户名进行登录
+     * @param userName
+     * @return
+     */
     @Override
     public User findByUserName(String userName) {
         User queryParam = new User();
@@ -81,6 +86,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * 登录
+     * @param user
+     * @return
+     */
     @Override
     public Map<String, Object> login(User user) {
         if(Objects.isNull(user) || StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword())) {
@@ -103,11 +113,43 @@ public class UserServiceImpl implements UserService {
         return ResponseUtil.success(ResponseCodeEnum.LOGIN_SUCCESS);
     }
 
+    /**
+     * 退出登录
+     * @return
+     */
     @Override
     public Map<String, Object> logout() {
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.logout();
         return ResponseUtil.success(ResponseCodeEnum.LOGOUT_SUCCESS);
+    }
+
+    /**
+     * 更新密码
+     * @param user
+     * @return
+     */
+    @Override
+    public Map<String, Object> updatePassword(User user) {
+        user.setSalt(PasswordUtil.generatetPrivateSalt());
+        user.setPassword(PasswordUtil.hashPassword(user.getSalt(), user.getPassword()));
+        user.preInsertOrUpdate();
+        update(user);
+        return ResponseUtil.success(ResponseCodeEnum.UPDATE_PASSWORD_SUCCESS);
+    }
+
+    /**
+     * 重置密码
+     * @param user
+     * @return
+     */
+    @Override
+    public Map<String, Object> resetPassword(User user) {
+        user.setSalt(PasswordUtil.generatetPrivateSalt());
+        user.setPassword(PasswordUtil.hashPassword(user.getSalt(), user.getPassword()));
+        user.preInsertOrUpdate();
+        update(user);
+        return ResponseUtil.success(ResponseCodeEnum.RESET_PASSWORD_SUCCESS);
     }
 
     private UserExample buildExample(User user) {

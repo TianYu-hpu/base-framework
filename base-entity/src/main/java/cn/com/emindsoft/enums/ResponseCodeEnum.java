@@ -47,7 +47,8 @@ public enum ResponseCodeEnum implements BaseCodeEnum<ResponseCodeEnum, String>{
     LOGOUT_SUCCESS("02005", "注销成功"),
     ACCOUNT_NOT_EXISTS("02006", "账户不存在"),
     LOGIN_FAILED_MANY_TIMES("02007", "登录失败次数过多"),
-
+    UPDATE_PASSWORD_SUCCESS("02008", "更新密码成功"),
+    RESET_PASSWORD_SUCCESS("02009", "重置密码成功"),
     /**
      * 业务类 03
      */
@@ -55,6 +56,7 @@ public enum ResponseCodeEnum implements BaseCodeEnum<ResponseCodeEnum, String>{
     UNSUPPORTED_OPR_ERR("03001", "不支持的操作"),
     PARAM_IS_EMPTY("03001","请求参数对象不能为空"),
     DATABASE_OPERATION_FAILE("03002","数据库操作异常"),
+
 
     /**
      * 财务类

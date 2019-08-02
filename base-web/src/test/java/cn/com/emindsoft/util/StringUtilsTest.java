@@ -1,6 +1,5 @@
 package cn.com.emindsoft.util;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 
 public class StringUtilsTest {

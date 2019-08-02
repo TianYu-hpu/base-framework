@@ -104,7 +104,7 @@ public class CustomShiroRealm extends AuthorizingRealm {
                 //这里传入的是user对象，比对的是用户名，直接传入用户名也没错，但是在授权部分就需要自己重新从数据库里取权限
                 user,
                 //密码
-                user.getPassword(),
+                ByteSource.Util.bytes(user.getPassword()),
                 //salt=username+salt
                 ByteSource.Util.bytes(user.getCredentialsSalt()),
                 //realm name

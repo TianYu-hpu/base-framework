@@ -62,4 +62,8 @@ public interface UserService extends BaseService<User>{
      * @return
      */
     Map<String, Object> logout();
+
+    Map<String, Object> updatePassword(User user);
+
+    Map<String, Object> resetPassword(User user);
 }

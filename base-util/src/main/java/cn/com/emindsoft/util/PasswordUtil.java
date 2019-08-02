@@ -20,12 +20,9 @@ public class PasswordUtil {
 	 * @param plainPassword
 	 * @return
 	 */
-	public static String hashPassword(String salt, String plainPassword) {
+	public static String hashPassword(String plainPassword, String salt) {
 		DefaultHashService hashService = new DefaultHashService();
-		hashService.setHashAlgorithmName("SHA-512");
-		hashService.setPrivateSalt(ByteSource.Util.bytes(salt.getBytes()));
-		hashService.setHashIterations(1);
-		HashRequest request = new HashRequest.Builder().setAlgorithmName("SHA")
+		HashRequest request = new HashRequest.Builder().setAlgorithmName("SHA-512")
 				.setSource(ByteSource.Util.bytes(plainPassword)).setSalt(ByteSource.Util.bytes(salt.getBytes()))
 				.setIterations(256).build();
 		String hex = hashService.computeHash(request).toHex();

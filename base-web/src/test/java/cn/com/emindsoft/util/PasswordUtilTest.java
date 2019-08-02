@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Unit test for simple App.
  */
-public class AppTest {
+public class PasswordUtilTest {
 
     @Test
     public void generateSaltTest() {
@@ -21,7 +21,7 @@ public class AppTest {
     public void encryptPasswordTest() {
         String salt = PasswordUtil.generatetPrivateSalt();
 
-        String cliperPassword = PasswordUtil.hashPassword(salt, "123456");
+        String cliperPassword = PasswordUtil.hashPassword("EmindSoft@123", "ec5b9b03e718dc5eaa194b42476a09f4");
 
         System.out.println("salt:" + salt);
         System.out.println("password:" + cliperPassword);
