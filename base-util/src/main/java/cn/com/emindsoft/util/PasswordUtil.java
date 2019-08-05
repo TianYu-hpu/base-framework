@@ -1,10 +1,12 @@
 package cn.com.emindsoft.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.HashRequest;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.util.SimpleByteSource;
 
 /**
  *  用户登录的时候将用户  明文密码 + salt 进行SHA-512迭代256次后的数据存储到数据库中
@@ -12,6 +14,7 @@ import org.apache.shiro.util.ByteSource;
  * @author tianyu
  *
  */
+@Slf4j
 public class PasswordUtil {
 
 	/**
@@ -22,11 +25,20 @@ public class PasswordUtil {
 	 * @return
 	 */
 	public static String hashPassword(String plainPassword, String salt) {
+		//默认算法SHA-512
 		DefaultHashService hashService = new DefaultHashService();
-		new SimpleHash("SHA-512", plainPassword, salt, 256);
-		HashRequest request = new HashRequest.Builder().setAlgorithmName("SHA-512")
-				.setSource(ByteSource.Util.bytes(plainPassword)).setSalt(ByteSource.Util.bytes(salt))
-				.setIterations(256).build();
+		hashService.setHashAlgorithmName("SHA-512");
+		//私盐，默认无
+		hashService.setPrivateSalt(new SimpleByteSource(salt));
+		//是否生成公盐，默认false
+		hashService.setGeneratePublicSalt(true);
+		//用于生成公盐。默认就这个
+		hashService.setRandomNumberGenerator(new SecureRandomNumberGenerator());
+		//生成Hash值的迭代次数
+		hashService.setHashIterations(256);
+		HashRequest request = new HashRequest.Builder()
+				.setAlgorithmName("SHA-512").setSource(ByteSource.Util.bytes(plainPassword))
+				.setSalt(ByteSource.Util.bytes(salt)).setIterations(256).build();
 		String hex = hashService.computeHash(request).toHex();
 		return hex;
 	}
@@ -40,7 +52,7 @@ public class PasswordUtil {
 		SecureRandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
 		ByteSource privateSalt = randomNumberGenerator.nextBytes();
 		String salt = BytesToHex.fromBytesToHex(privateSalt.getBytes());
-		System.out.println("私盐:" + salt);
+		log.info("私盐:" + salt);
 		return salt;
 	}
 	/**

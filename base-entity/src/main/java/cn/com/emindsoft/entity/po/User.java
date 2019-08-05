@@ -33,13 +33,7 @@ public class User extends BaseEntity {
     private Date updateTime;
 
     private String updateBy;
-    /**
-     * 密码盐. 重新对盐重新进行了定义，用户名+salt，这样就不容易被破解，可以采用多种方式定义加盐
-     * @return
-     */
-    public String getCredentialsSalt(){
-        return this.username + this.salt;
-    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {

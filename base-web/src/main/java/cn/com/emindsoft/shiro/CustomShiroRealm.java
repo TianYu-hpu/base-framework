@@ -89,10 +89,12 @@ public class CustomShiroRealm extends AuthorizingRealm {
         log.info("MyShiroRealm.doGetAuthenticationInfo()");
         //获取用户的输入的账号.
         String username = (String)token.getPrincipal();
+        log.info("username:{]", username);
         if(StringUtils.isEmpty(username)) {
             throw new UnknownAccountException("账户不存在");
         }
         log.info("credential:{}", token.getCredentials());
+        String password = new String((char[]) token.getCredentials());
         //通过username从数据库中查找 User对象.
         //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         User user = userService.findByUserName(username);
@@ -104,9 +106,9 @@ public class CustomShiroRealm extends AuthorizingRealm {
                 //这里传入的是user对象，比对的是用户名，直接传入用户名也没错，但是在授权部分就需要自己重新从数据库里取权限
                 user,
                 //密码
-                ByteSource.Util.bytes(user.getPassword()),
-                //salt=username+salt
-                ByteSource.Util.bytes(user.getCredentialsSalt()),
+                user.getPassword(),
+                //salt
+                ByteSource.Util.bytes(user.getSalt()),
                 //realm name
                 getName()
         );

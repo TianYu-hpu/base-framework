@@ -10,6 +10,9 @@ import org.apache.shiro.cache.CacheManager;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * @author tianyu
+ */
 @Slf4j
 public class CustomHashedCredentialsMatcher extends HashedCredentialsMatcher {
 

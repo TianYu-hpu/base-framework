@@ -1,12 +1,14 @@
 package cn.com.emindsoft.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+@Slf4j
 public class StringUtilsTest {
 
     @Test
     public void generateSaltTest() {
-        System.out.println(StringUtils.generateSalt());
+        log.info(StringUtils.generateSalt());
     }
 
     @Test

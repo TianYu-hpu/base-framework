@@ -12,6 +12,6 @@ public class ConfigConstantTest {
 
     @Test
     public void getConfig() {
-        System.out.println(configConstant.getWebStaticFile());
+        log.info(configConstant.getWebStaticFile());
     }
 }
