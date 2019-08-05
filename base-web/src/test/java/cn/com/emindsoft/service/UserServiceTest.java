@@ -24,10 +24,10 @@ public class UserServiceTest extends BaseWebApplicationTests {
     @Test
     public void testSave() {
         User user = new User();
-        user.setUsername("admin");
+        user.setUsername("root");
         user.setPassword("EmindSoft@123");
-        user.setEmail("tianyu@emindsoft.com.cn");
-        user.setPhone("135-5245-0292");
+        user.setEmail("base_framework@emindsoft.com.cn");
+        user.setPhone("13552450292");
         user.setActiveFlag(ActiveFlagEnum.ACTIVE.getCode());
         user.setDelFlag(DelFlagEnum.N.getCode());
         userService.save(user);

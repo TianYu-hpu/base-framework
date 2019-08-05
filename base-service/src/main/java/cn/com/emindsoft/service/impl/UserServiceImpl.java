@@ -42,21 +42,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int save(User user) {
+    public Map<String, Object> save(User user) {
         //增加salt
         if(StringUtils.isEmpty(user.getSalt())) {
             user.setSalt(PasswordUtil.generatetPrivateSalt());
             user.setPassword(PasswordUtil.hashPassword(user.getSalt(), user.getPassword()));
         }
         user.preInsertOrUpdate();
-        return userMapper.insert(user);
+        userMapper.insert(user);
+        return ResponseUtil.success(ResponseCodeEnum.REGISTER_SUCCESS);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int update(User user) {
+    public Map<String, Object> update(User user) {
         user.preInsertOrUpdate();
-        return userMapper.updateByExample(user, buildExample(user));
+        userMapper.updateByExample(user, buildExample(user));
+        return ResponseUtil.success(ResponseCodeEnum.UPDATE_SUCCESS);
     }
 
     @Override
@@ -97,7 +99,7 @@ public class UserServiceImpl implements UserService {
             return ResponseUtil.fail(ResponseCodeEnum.LOGIN_FAILED);
         }
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword(), true);
         try {
             subject.login(token);
         } catch (IncorrectCredentialsException ice) {

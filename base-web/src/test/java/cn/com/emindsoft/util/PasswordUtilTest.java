@@ -23,7 +23,7 @@ public class PasswordUtilTest {
     public void encryptPasswordTest() {
         String salt = PasswordUtil.generatetPrivateSalt();
 
-        String cliperPassword = PasswordUtil.hashPassword("EmindSoft@123", "ec5b9b03e718dc5eaa194b42476a09f4");
+        String cliperPassword = PasswordUtil.hashPassword("EmindSoft@123", "ebfa50fb91c526a6e4fc31c7ba22403d");
 
         log.info("salt:" + salt);
         log.info("password:" + cliperPassword);

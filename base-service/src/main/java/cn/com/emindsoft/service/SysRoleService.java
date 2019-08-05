@@ -3,6 +3,7 @@ package cn.com.emindsoft.service;
 import cn.com.emindsoft.entity.po.SysRole;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author tianyu
@@ -17,7 +18,7 @@ public interface SysRoleService extends BaseService<SysRole>{
      * @return
      */
     @Override
-    int save(SysRole record);
+    Map<String, Object> save(SysRole record);
 
     /**
      * 更新，必须有主键
@@ -25,7 +26,7 @@ public interface SysRoleService extends BaseService<SysRole>{
      * @return
      */
     @Override
-    int update(SysRole record);
+    Map<String, Object> update(SysRole record);
 
 
     /**

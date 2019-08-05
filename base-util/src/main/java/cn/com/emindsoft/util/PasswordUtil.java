@@ -25,22 +25,9 @@ public class PasswordUtil {
 	 * @return
 	 */
 	public static String hashPassword(String plainPassword, String salt) {
-		//默认算法SHA-512
-		DefaultHashService hashService = new DefaultHashService();
-		hashService.setHashAlgorithmName("SHA-512");
-		//私盐，默认无
-		hashService.setPrivateSalt(new SimpleByteSource(salt));
-		//是否生成公盐，默认false
-		hashService.setGeneratePublicSalt(true);
-		//用于生成公盐。默认就这个
-		hashService.setRandomNumberGenerator(new SecureRandomNumberGenerator());
-		//生成Hash值的迭代次数
-		hashService.setHashIterations(256);
-		HashRequest request = new HashRequest.Builder()
-				.setAlgorithmName("SHA-512").setSource(ByteSource.Util.bytes(plainPassword))
-				.setSalt(ByteSource.Util.bytes(salt)).setIterations(256).build();
-		String hex = hashService.computeHash(request).toHex();
-		return hex;
+		log.info("salt", ByteSource.Util.bytes(salt));
+		SimpleHash hash = new SimpleHash("SHA-512", plainPassword, ByteSource.Util.bytes(salt), 256);
+		return hash.toString();
 	}
 
 	/**

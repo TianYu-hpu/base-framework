@@ -3,6 +3,7 @@ package cn.com.emindsoft.service;
 import cn.com.emindsoft.entity.po.SysPermission;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author tianyu
@@ -17,7 +18,7 @@ public interface SysPermissionService extends BaseService<SysPermission>{
      * @return
      */
     @Override
-    int save(SysPermission record);
+    Map<String, Object> save(SysPermission record);
 
     /**
      * 更新，必须有主键
@@ -25,7 +26,7 @@ public interface SysPermissionService extends BaseService<SysPermission>{
      * @return
      */
     @Override
-    int update(SysPermission record);
+    Map<String, Object> update(SysPermission record);
 
 
     /**

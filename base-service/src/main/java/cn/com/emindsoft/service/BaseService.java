@@ -2,6 +2,7 @@ package cn.com.emindsoft.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: tianyu
@@ -15,14 +16,14 @@ public interface BaseService<T> {
      * @param t
      * @return
      */
-    int save(T t);
+    Map<String, Object> save(T t);
 
     /**
      * 更新，必须有主键
      * @param t
      * @return
      */
-    int update(T t);
+    Map<String, Object> update(T t);
 
 
     /**

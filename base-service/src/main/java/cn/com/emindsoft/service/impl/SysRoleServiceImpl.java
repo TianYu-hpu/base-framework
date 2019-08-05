@@ -2,14 +2,17 @@ package cn.com.emindsoft.service.impl;
 
 import cn.com.emindsoft.entity.po.SysRole;
 import cn.com.emindsoft.entity.po.SysRoleExample;
+import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.mapper.SysRoleMapper;
 import cn.com.emindsoft.service.SysRoleService;
+import cn.com.emindsoft.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author tianyu
@@ -25,16 +28,18 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int save(SysRole user) {
+    public Map<String, Object> save(SysRole user) {
         user.preInsertOrUpdate();
-        return sysRoleMapper.insert(user);
+        sysRoleMapper.insert(user);
+        return ResponseUtil.success(ResponseCodeEnum.CREATE_SUCCESS);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int update(SysRole user) {
+    public Map<String, Object> update(SysRole user) {
         user.preInsertOrUpdate();
-        return sysRoleMapper.updateByExample(user, buildExample(user));
+        sysRoleMapper.updateByExample(user, buildExample(user));
+        return ResponseUtil.success(ResponseCodeEnum.UPDATE_SUCCESS);
     }
 
     @Override
@@ -50,8 +55,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     private SysRoleExample buildExample(SysRole user) {
         SysRoleExample example = new SysRoleExample();
         SysRoleExample.Criteria criteria = example.createCriteria();
-
-
 
         example.setOrderByClause("create_time desc");
 

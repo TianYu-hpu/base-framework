@@ -3,6 +3,8 @@ package cn.com.emindsoft.util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import sun.net.www.content.image.png;
+import sun.security.krb5.Config;
 
 import java.util.Random;
 
@@ -13,12 +15,8 @@ import java.util.Random;
 @Slf4j
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
-    @Value("${web.staticFile}")
-    private static String webStaticFile;
-    @Value("${urlSuffix}")
-    private static String urlSuffix;
 
-    private static String[] staticFiles =  StringUtils.split(webStaticFile, ",");
+    private static String[] staticFiles =  StringUtils.split(ConfigConstant.WEB_STATIC_FILES, ",");
 
     /**
      * 判断访问URI是否是静态文件请求
@@ -27,13 +25,12 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     public static boolean isStaticFile(String uri) {
         if (staticFiles == null){
             try {
-                throw new Exception("检测到“app.properties”中没有配置“web.staticFile”属性。配置示例：\n#静态文件后缀\n"
-                        +"web.staticFile=.css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.crx,.xpi,.exe,.ipa,.apk");
+                throw new Exception("检测到没有配置静态文件后缀 .css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.crx,.xpi,.exe,.ipa,.apk");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        if (StringUtils.endsWithAny(uri, staticFiles) && !StringUtils.endsWithAny(uri, urlSuffix)
+        if (StringUtils.endsWithAny(uri, staticFiles) && !StringUtils.endsWithAny(uri, ConfigConstant.URL_SUFFIX)
                 && !StringUtils.endsWithAny(uri, ".jsp") && !StringUtils.endsWithAny(uri, ".java")){
             return true;
         }

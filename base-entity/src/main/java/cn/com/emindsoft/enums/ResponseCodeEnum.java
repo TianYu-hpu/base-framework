@@ -49,14 +49,16 @@ public enum ResponseCodeEnum implements BaseCodeEnum<ResponseCodeEnum, String>{
     LOGIN_FAILED_MANY_TIMES("02007", "登录失败次数过多"),
     UPDATE_PASSWORD_SUCCESS("02008", "更新密码成功"),
     RESET_PASSWORD_SUCCESS("02009", "重置密码成功"),
+
     /**
      * 业务类 03
      */
-    UPLOAD_FILE_SIZE_TOO_LARGE("03002", "上传文件大小超过限制"),
     UNSUPPORTED_OPR_ERR("03001", "不支持的操作"),
-    PARAM_IS_EMPTY("03001","请求参数对象不能为空"),
-    DATABASE_OPERATION_FAILE("03002","数据库操作异常"),
-
+    UPLOAD_FILE_SIZE_TOO_LARGE("03002", "上传文件大小超过限制"),
+    PARAM_IS_EMPTY("03003","请求参数对象不能为空"),
+    DATABASE_OPERATION_FAILE("03004","数据库操作异常"),
+    CREATE_SUCCESS("03004", "创建成功"),
+    UPDATE_SUCCESS("03005", "更新成功"),
 
     /**
      * 财务类

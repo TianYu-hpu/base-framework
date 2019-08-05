@@ -1,6 +1,6 @@
 package cn.com.emindsoft.service;
 
-import cn.com.emindsoft.entity.po.UserRole;
+import cn.com.emindsoft.entity.po.SysMenu;
 
 import java.util.List;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * @Date: 2019/5/17 23:02
  * @Description:
  */
-public interface UserRoleService extends BaseService<UserRole>{
+public interface SysMenuService extends BaseService<SysMenu>{
 
     /**
      * 保存
@@ -18,7 +18,7 @@ public interface UserRoleService extends BaseService<UserRole>{
      * @return
      */
     @Override
-    Map<String, Object> save(UserRole record);
+    Map<String, Object> save(SysMenu record);
 
     /**
      * 更新，必须有主键
@@ -26,14 +26,21 @@ public interface UserRoleService extends BaseService<UserRole>{
      * @return
      */
     @Override
-    Map<String, Object> update(UserRole record);
+    Map<String, Object> update(SysMenu record);
 
+
+    /**
+     * 主键查询
+     * @param id
+     * @return
+     */
+    SysMenu findByPrimaryKey(String id);
     /**
      * 查询列表
      * @param param
      * @return
      */
     @Override
-    List<UserRole> findByExample(UserRole param);
+    List<SysMenu> findByExample(SysMenu param);
 
 }

@@ -1,10 +1,10 @@
 package cn.com.emindsoft.service.impl;
 
-import cn.com.emindsoft.entity.po.UserRole;
-import cn.com.emindsoft.entity.po.UserRoleExample;
+import cn.com.emindsoft.entity.po.SysMenu;
+import cn.com.emindsoft.entity.po.SysMenuExample;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
-import cn.com.emindsoft.mapper.UserRoleMapper;
-import cn.com.emindsoft.service.UserRoleService;
+import cn.com.emindsoft.mapper.SysMenuMapper;
+import cn.com.emindsoft.service.SysMenuService;
 import cn.com.emindsoft.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,35 +21,40 @@ import java.util.Map;
  */
 @Service
 @Slf4j
-public class UserRoleServiceImpl implements UserRoleService {
+public class SysMenuServiceImpl implements SysMenuService {
 
     @Autowired
-    private UserRoleMapper userRoleMapper;
+    private SysMenuMapper SysMenuMapper;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Map<String, Object> save(UserRole record) {
+    public Map<String, Object> save(SysMenu record) {
         record.preInsertOrUpdate();
-        userRoleMapper.insert(record);
+        SysMenuMapper.insert(record);
         return ResponseUtil.success(ResponseCodeEnum.CREATE_SUCCESS);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Map<String, Object> update(UserRole record) {
+    public Map<String, Object> update(SysMenu record) {
         record.preInsertOrUpdate();
-        userRoleMapper.updateByExample(record, buildExample(record));
+        SysMenuMapper.updateByExample(record, buildExample(record));
         return ResponseUtil.success(ResponseCodeEnum.UPDATE_SUCCESS);
     }
 
     @Override
-    public List<UserRole> findByExample(UserRole param) {
-        return userRoleMapper.selectByExample(buildExample(param));
+    public SysMenu findByPrimaryKey(String id) {
+        return SysMenuMapper.selectByPrimaryKey(id);
     }
 
-    private UserRoleExample buildExample(UserRole record) {
-        UserRoleExample example = new UserRoleExample();
-        UserRoleExample.Criteria criteria = example.createCriteria();
+    @Override
+    public List<SysMenu> findByExample(SysMenu param) {
+        return SysMenuMapper.selectByExample(buildExample(param));
+    }
+
+    private SysMenuExample buildExample(SysMenu record) {
+        SysMenuExample example = new SysMenuExample();
+        SysMenuExample.Criteria criteria = example.createCriteria();
 
         example.setOrderByClause("create_time desc");
 

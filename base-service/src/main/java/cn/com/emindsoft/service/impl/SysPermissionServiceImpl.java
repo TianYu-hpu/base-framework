@@ -2,8 +2,10 @@ package cn.com.emindsoft.service.impl;
 
 import cn.com.emindsoft.entity.po.SysPermission;
 import cn.com.emindsoft.entity.po.SysPermissionExample;
+import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.mapper.SysPermissionMapper;
 import cn.com.emindsoft.service.SysPermissionService;
+import cn.com.emindsoft.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -27,16 +30,18 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int save(SysPermission record) {
+    public Map<String, Object> save(SysPermission record) {
         record.preInsertOrUpdate();
-        return sysPermissionMapper.insert(record);
+        sysPermissionMapper.insert(record);
+        return ResponseUtil.success(ResponseCodeEnum.CREATE_SUCCESS);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int update(SysPermission record) {
+    public Map<String, Object> update(SysPermission record) {
         record.preInsertOrUpdate();
-        return sysPermissionMapper.updateByExample(record, buildExample(record));
+        sysPermissionMapper.updateByExample(record, buildExample(record));
+        return ResponseUtil.success(ResponseCodeEnum.UPDATE_SUCCESS);
     }
 
     @Override

@@ -33,4 +33,8 @@ public class ConfigConstant {
     public void setWebStaticFile(String webStaticFile) {
         this.webStaticFile = webStaticFile;
     }
+
+    public static final String WEB_STATIC_FILES = ".css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.crx,.xpi,.exe,.ipa,.apk";
+
+    public static final String URL_SUFFIX = ".html";
 }
