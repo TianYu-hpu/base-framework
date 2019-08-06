@@ -2,11 +2,14 @@ package cn.com.emindsoft.service.impl;
 
 import cn.com.emindsoft.entity.po.User;
 import cn.com.emindsoft.entity.po.UserExample;
+import cn.com.emindsoft.enums.DelFlagEnum;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.mapper.UserMapper;
 import cn.com.emindsoft.service.UserService;
 import cn.com.emindsoft.util.PasswordUtil;
 import cn.com.emindsoft.util.ResponseUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -42,33 +45,39 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Map<String, Object> save(User user) {
+    public int save(User user) {
         //增加salt
         if(StringUtils.isEmpty(user.getSalt())) {
             user.setSalt(PasswordUtil.generatetPrivateSalt());
             user.setPassword(PasswordUtil.hashPassword(user.getSalt(), user.getPassword()));
         }
         user.preInsertOrUpdate();
-        userMapper.insert(user);
-        return ResponseUtil.success(ResponseCodeEnum.REGISTER_SUCCESS);
+        return userMapper.insert(user);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Map<String, Object> update(User user) {
+    public int update(User user) {
         user.preInsertOrUpdate();
-        userMapper.updateByExample(user, buildExample(user));
-        return ResponseUtil.success(ResponseCodeEnum.UPDATE_SUCCESS);
+        return userMapper.updateByExample(user, buildExample(user));
     }
 
     @Override
     public User findByPrimaryKey(String id) {
-        return userMapper.selectByPrimaryKey(id);
+        User result = userMapper.selectByPrimaryKey(id);
+        return result;
     }
 
     @Override
     public List<User> findByExample(User param) {
         return userMapper.selectByExample(buildExample(param));
+    }
+
+    @Override
+    public PageInfo<User> findPageByExample(User param) {
+        PageInfo<User> pageInfo = PageHelper.startPage(0, 10).doSelectPageInfo(() ->
+                userMapper.selectByExample(buildExample(param)));
+        return pageInfo;
     }
 
     /**
@@ -80,7 +89,7 @@ public class UserServiceImpl implements UserService {
     public User findByUserName(String userName) {
         User queryParam = new User();
         queryParam.setUsername(userName);
-        List<User> result = findByExample(queryParam);
+        List<User> result = userMapper.selectByExample(buildExample(queryParam));
         if(CollectionUtils.isEmpty(result)) {
             return null;
         } else {
@@ -109,6 +118,7 @@ public class UserServiceImpl implements UserService {
         } catch (ExcessiveAttemptsException eae) {
            return ResponseUtil.fail(ResponseCodeEnum.LOGIN_FAILED_MANY_TIMES);
         }
+
         User loginUser = findByUserName(user.getUsername());
         subject.getSession().setAttribute("user", loginUser);
 
@@ -174,6 +184,7 @@ public class UserServiceImpl implements UserService {
             criteria.andPhoneEqualTo(user.getPhone());
         }
 
+        criteria.andDelFlagEqualTo(DelFlagEnum.N.getCode());
         example.setOrderByClause("create_time desc");
 
         return example;

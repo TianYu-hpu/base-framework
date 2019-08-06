@@ -1,6 +1,8 @@
 package cn.com.emindsoft.service;
 
 
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 import java.util.Map;
 
@@ -16,15 +18,21 @@ public interface BaseService<T> {
      * @param t
      * @return
      */
-    Map<String, Object> save(T t);
+    int save(T t);
 
     /**
      * 更新，必须有主键
      * @param t
      * @return
      */
-    Map<String, Object> update(T t);
+    int update(T t);
 
+    /**
+     * 根据主键查找
+     * @param id
+     * @return
+     */
+    T findByPrimaryKey(String id);
 
     /**
      * 查询列表
@@ -32,5 +40,12 @@ public interface BaseService<T> {
      * @return
      */
     List<T> findByExample(T param);
+
+    /**
+     * 分页查找
+      * @param param
+     * @return
+     */
+    PageInfo<T> findPageByExample(T param);
 
 }

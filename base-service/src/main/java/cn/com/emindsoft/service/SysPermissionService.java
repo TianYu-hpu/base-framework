@@ -18,7 +18,7 @@ public interface SysPermissionService extends BaseService<SysPermission>{
      * @return
      */
     @Override
-    Map<String, Object> save(SysPermission record);
+    int save(SysPermission record);
 
     /**
      * 更新，必须有主键
@@ -26,7 +26,7 @@ public interface SysPermissionService extends BaseService<SysPermission>{
      * @return
      */
     @Override
-    Map<String, Object> update(SysPermission record);
+    int update(SysPermission record);
 
 
     /**

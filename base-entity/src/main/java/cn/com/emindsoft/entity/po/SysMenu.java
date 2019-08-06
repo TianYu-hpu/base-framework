@@ -2,10 +2,6 @@ package cn.com.emindsoft.entity.po;
 
 import java.util.Date;
 
-/**
- * 菜单
- * @author tianyu
- */
 public class SysMenu extends BaseEntity {
     private String id;
 
@@ -22,6 +18,8 @@ public class SysMenu extends BaseEntity {
     private String icon;
 
     private Integer orderNum;
+
+    private String delFlag;
 
     private Date createTime;
 
@@ -95,6 +93,14 @@ public class SysMenu extends BaseEntity {
         this.orderNum = orderNum;
     }
 
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag == null ? null : delFlag.trim();
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -147,6 +153,7 @@ public class SysMenu extends BaseEntity {
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
             && (this.getOrderNum() == null ? other.getOrderNum() == null : this.getOrderNum().equals(other.getOrderNum()))
+            && (this.getDelFlag() == null ? other.getDelFlag() == null : this.getDelFlag().equals(other.getDelFlag()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
@@ -165,6 +172,7 @@ public class SysMenu extends BaseEntity {
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getIcon() == null) ? 0 : getIcon().hashCode());
         result = prime * result + ((getOrderNum() == null) ? 0 : getOrderNum().hashCode());
+        result = prime * result + ((getDelFlag() == null) ? 0 : getDelFlag().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());

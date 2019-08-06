@@ -1,6 +1,7 @@
 package cn.com.emindsoft.service;
 
 import cn.com.emindsoft.entity.po.SysMenu;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ public interface SysMenuService extends BaseService<SysMenu>{
      * @return
      */
     @Override
-    Map<String, Object> save(SysMenu record);
+    int save(SysMenu record);
 
     /**
      * 更新，必须有主键
@@ -26,15 +27,16 @@ public interface SysMenuService extends BaseService<SysMenu>{
      * @return
      */
     @Override
-    Map<String, Object> update(SysMenu record);
-
+    int update(SysMenu record);
 
     /**
      * 主键查询
      * @param id
      * @return
      */
+    @Override
     SysMenu findByPrimaryKey(String id);
+
     /**
      * 查询列表
      * @param param
@@ -42,5 +44,13 @@ public interface SysMenuService extends BaseService<SysMenu>{
      */
     @Override
     List<SysMenu> findByExample(SysMenu param);
+
+    /**
+     * 分页
+     * @param param
+     * @return
+     */
+    @Override
+    PageInfo<SysMenu> findPageByExample(SysMenu param);
 
 }

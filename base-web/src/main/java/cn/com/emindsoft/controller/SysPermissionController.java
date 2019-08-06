@@ -1,10 +1,9 @@
 package cn.com.emindsoft.controller;
 
 import cn.com.emindsoft.entity.po.SysMenu;
-import cn.com.emindsoft.entity.po.User;
+import cn.com.emindsoft.entity.po.SysPermission;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
-import cn.com.emindsoft.service.SysMenuService;
-import cn.com.emindsoft.service.UserService;
+import cn.com.emindsoft.service.SysPermissionService;
 import cn.com.emindsoft.util.ResponseUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +23,15 @@ import java.util.Map;
 @Controller
 @ResponseBody
 @RefreshScope
-@RequestMapping("/sys/menu")
-public class SysMenuController {
+@RequestMapping("/sys/permission")
+public class SysPermissionController {
 
     @Autowired
-    private SysMenuService userService;
+    private SysPermissionService sysPermissionService;
 
     @PostMapping("/save")
-    public Map<String,Object> save(@RequestBody SysMenu record) {
-        int rowCount = userService.save(record);
+    public Map<String,Object> save(@RequestBody SysPermission record) {
+        int rowCount = sysPermissionService.save(record);
         if(1 == rowCount) {
             return ResponseUtil.success(ResponseCodeEnum.CREATE_SUCCESS);
         }
@@ -40,31 +39,29 @@ public class SysMenuController {
     }
 
     @PostMapping("/update")
-    public Map<String,Object> update(@RequestBody SysMenu record) {
-        int rowCount = userService.update(record);
+    public Map<String,Object> update(@RequestBody SysPermission record) {
+        int rowCount = sysPermissionService.update(record);
         if(1 == rowCount) {
-            return ResponseUtil.success(ResponseCodeEnum.UPDATE_SUCCESS);
+            return ResponseUtil.success(ResponseCodeEnum.CREATE_SUCCESS);
         }
-        return ResponseUtil.success(ResponseCodeEnum.UPDATE_FAIL);
+        return ResponseUtil.success(ResponseCodeEnum.CREATE_FAIL);
     }
 
     @GetMapping("/{id}")
     public Map<String,Object> id(@PathVariable String id) {
-        SysMenu result = userService.findByPrimaryKey(id);
+        SysPermission result = sysPermissionService.findByPrimaryKey(id);
         return ResponseUtil.response(0, "200", "SUCCESS", result);
     }
 
     @PostMapping("/list")
-    public Map<String,Object> list(@RequestBody SysMenu record) {
-        List<SysMenu> sysMenuList = userService.findByExample(record);
-        return ResponseUtil.response(0, "200", "success", sysMenuList);
+    public Map<String,Object> list(@RequestBody SysPermission record) {
+        List<SysPermission> sysPermissionList = sysPermissionService.findByExample(record);
+        return ResponseUtil.response(0, "200", "success", sysPermissionList);
     }
 
     @PostMapping("/page")
-    public Map<String,Object> page(@RequestBody SysMenu record) {
-        PageInfo<SysMenu> pageInfo = userService.findPageByExample(record);
+    public Map<String,Object> page(@RequestBody SysPermission record) {
+        PageInfo<SysPermission> pageInfo = sysPermissionService.findPageByExample(record);
         return ResponseUtil.response(0, "200", "success", pageInfo);
     }
-
-
 }

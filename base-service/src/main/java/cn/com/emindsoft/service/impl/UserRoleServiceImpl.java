@@ -2,10 +2,13 @@ package cn.com.emindsoft.service.impl;
 
 import cn.com.emindsoft.entity.po.UserRole;
 import cn.com.emindsoft.entity.po.UserRoleExample;
+import cn.com.emindsoft.enums.DelFlagEnum;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.mapper.UserRoleMapper;
 import cn.com.emindsoft.service.UserRoleService;
 import cn.com.emindsoft.util.ResponseUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,18 +31,22 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Map<String, Object> save(UserRole record) {
+    public int save(UserRole record) {
         record.preInsertOrUpdate();
-        userRoleMapper.insert(record);
-        return ResponseUtil.success(ResponseCodeEnum.CREATE_SUCCESS);
+        return userRoleMapper.insert(record);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Map<String, Object> update(UserRole record) {
+    public int update(UserRole record) {
         record.preInsertOrUpdate();
-        userRoleMapper.updateByExample(record, buildExample(record));
-        return ResponseUtil.success(ResponseCodeEnum.UPDATE_SUCCESS);
+        return userRoleMapper.updateByExample(record, buildExample(record));
+    }
+
+    @Override
+    public UserRole findByPrimaryKey(String id) {
+        UserRole result = userRoleMapper.selectByPrimaryKey(id);
+        return result;
     }
 
     @Override
@@ -47,12 +54,19 @@ public class UserRoleServiceImpl implements UserRoleService {
         return userRoleMapper.selectByExample(buildExample(param));
     }
 
+    @Override
+    public PageInfo<UserRole> findPageByExample(UserRole param) {
+        PageInfo<UserRole> pageInfo = PageHelper.startPage(0, 10).doSelectPageInfo(() ->
+                userRoleMapper.selectByExample(buildExample(param)));
+        return pageInfo;
+    }
+
     private UserRoleExample buildExample(UserRole record) {
         UserRoleExample example = new UserRoleExample();
         UserRoleExample.Criteria criteria = example.createCriteria();
 
+        criteria.andDelFlagEqualTo(DelFlagEnum.N.getCode());
         example.setOrderByClause("create_time desc");
-
         return example;
     }
 }

@@ -10,6 +10,7 @@
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="icon" property="icon" jdbcType="VARCHAR" />
     <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -74,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, parent_id, name, url, permission, type, icon, order_num, create_time, create_by, 
-    update_time, update_by
+    id, parent_id, name, url, permission, type, icon, order_num, del_flag, create_time, 
+    create_by, update_time, update_by
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.com.emindsoft.entity.po.SysMenuExample" >
     select
@@ -113,12 +114,14 @@
     </selectKey>
     insert into sys_menu (parent_id, name, url, 
       permission, type, icon, 
-      order_num, create_time, create_by, 
-      update_time, update_by)
+      order_num, del_flag, create_time, 
+      create_by, update_time, update_by
+      )
     values (#{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{permission,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, 
-      #{orderNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR})
+      #{orderNum,jdbcType=INTEGER}, #{delFlag,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.com.emindsoft.entity.po.SysMenu" >
     <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
@@ -146,6 +149,9 @@
       </if>
       <if test="orderNum != null" >
         order_num,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -181,6 +187,9 @@
       </if>
       <if test="orderNum != null" >
         #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -229,6 +238,9 @@
       <if test="record.orderNum != null" >
         order_num = #{record.orderNum,jdbcType=INTEGER},
       </if>
+      <if test="record.delFlag != null" >
+        del_flag = #{record.delFlag,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -256,6 +268,7 @@
       type = #{record.type,jdbcType=INTEGER},
       icon = #{record.icon,jdbcType=VARCHAR},
       order_num = #{record.orderNum,jdbcType=INTEGER},
+      del_flag = #{record.delFlag,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_by = #{record.createBy,jdbcType=VARCHAR},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -288,6 +301,9 @@
       <if test="orderNum != null" >
         order_num = #{orderNum,jdbcType=INTEGER},
       </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -312,6 +328,7 @@
       type = #{type,jdbcType=INTEGER},
       icon = #{icon,jdbcType=VARCHAR},
       order_num = #{orderNum,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_by = #{createBy,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},

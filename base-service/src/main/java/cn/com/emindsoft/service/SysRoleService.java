@@ -18,7 +18,7 @@ public interface SysRoleService extends BaseService<SysRole>{
      * @return
      */
     @Override
-    Map<String, Object> save(SysRole record);
+    int save(SysRole record);
 
     /**
      * 更新，必须有主键
@@ -26,7 +26,7 @@ public interface SysRoleService extends BaseService<SysRole>{
      * @return
      */
     @Override
-    Map<String, Object> update(SysRole record);
+    int update(SysRole record);
 
 
     /**

@@ -1,6 +1,9 @@
 package cn.com.emindsoft.util;
 
+import cn.com.emindsoft.entity.po.BaseEntity;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
+import com.github.pagehelper.PageInfo;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.HashMap;
 import java.util.List;
@@ -55,14 +58,13 @@ public class ResponseUtil {
         return response(status, code, message ,null);
     }
 
-
-    public static Map<String, Object> response(int status, String code, String message, List<Object> list) {
+    public static Map<String, Object> response(int status, String code, String message, PageInfo<T> page) {
         Map<String, Object> response = new HashMap<>(10);
         Map<String, Object> data = new HashMap<>(10);
         response.put("status", status);
         data.put("code", code);
         data.put("message", message);
-        data.put("list", list);
+        data.put("page", page);
         response.put("data", data);
         return response;
     }

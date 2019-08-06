@@ -18,7 +18,7 @@ public interface UserService extends BaseService<User>{
      * @return
      */
     @Override
-    Map<String, Object> save(User user);
+    int save(User user);
 
     /**
      * 更新，必须有主键
@@ -26,7 +26,7 @@ public interface UserService extends BaseService<User>{
      * @return
      */
     @Override
-    Map<String, Object> update(User user);
+    int update(User user);
 
 
     /**

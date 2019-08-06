@@ -33,6 +33,12 @@
             <artifactId>shiro-core</artifactId>
             <version>RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.10</version>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -18,7 +18,7 @@ public interface UserRoleService extends BaseService<UserRole>{
      * @return
      */
     @Override
-    Map<String, Object> save(UserRole record);
+    int save(UserRole record);
 
     /**
      * 更新，必须有主键
@@ -26,7 +26,7 @@ public interface UserRoleService extends BaseService<UserRole>{
      * @return
      */
     @Override
-    Map<String, Object> update(UserRole record);
+    int update(UserRole record);
 
     /**
      * 查询列表

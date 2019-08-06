@@ -49,6 +49,8 @@ public enum ResponseCodeEnum implements BaseCodeEnum<ResponseCodeEnum, String>{
     LOGIN_FAILED_MANY_TIMES("02007", "登录失败次数过多"),
     UPDATE_PASSWORD_SUCCESS("02008", "更新密码成功"),
     RESET_PASSWORD_SUCCESS("02009", "重置密码成功"),
+    REGISTER_FAIL("02010", "注册失败"),
+
 
     /**
      * 业务类 03
@@ -59,6 +61,8 @@ public enum ResponseCodeEnum implements BaseCodeEnum<ResponseCodeEnum, String>{
     DATABASE_OPERATION_FAILE("03004","数据库操作异常"),
     CREATE_SUCCESS("03004", "创建成功"),
     UPDATE_SUCCESS("03005", "更新成功"),
+    CREATE_FAIL("03006", "创建失败"),
+    UPDATE_FAIL("03007", "更新失败"),
 
     /**
      * 财务类

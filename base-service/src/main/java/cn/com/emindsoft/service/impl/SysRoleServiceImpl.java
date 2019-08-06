@@ -2,10 +2,13 @@ package cn.com.emindsoft.service.impl;
 
 import cn.com.emindsoft.entity.po.SysRole;
 import cn.com.emindsoft.entity.po.SysRoleExample;
+import cn.com.emindsoft.enums.DelFlagEnum;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.mapper.SysRoleMapper;
 import cn.com.emindsoft.service.SysRoleService;
 import cn.com.emindsoft.util.ResponseUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,23 +31,22 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Map<String, Object> save(SysRole user) {
+    public int save(SysRole user) {
         user.preInsertOrUpdate();
-        sysRoleMapper.insert(user);
-        return ResponseUtil.success(ResponseCodeEnum.CREATE_SUCCESS);
+        return sysRoleMapper.insert(user);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Map<String, Object> update(SysRole user) {
+    public int update(SysRole user) {
         user.preInsertOrUpdate();
-        sysRoleMapper.updateByExample(user, buildExample(user));
-        return ResponseUtil.success(ResponseCodeEnum.UPDATE_SUCCESS);
+        return sysRoleMapper.updateByExample(user, buildExample(user));
     }
 
     @Override
     public SysRole findByPrimaryKey(String id) {
-        return sysRoleMapper.selectByPrimaryKey(id);
+        SysRole result = sysRoleMapper.selectByPrimaryKey(id);
+        return result;
     }
 
     @Override
@@ -52,10 +54,17 @@ public class SysRoleServiceImpl implements SysRoleService {
         return sysRoleMapper.selectByExample(buildExample(param));
     }
 
+    @Override
+    public PageInfo<SysRole> findPageByExample(SysRole param) {
+        PageInfo<SysRole> pageInfo = PageHelper.startPage(0, 10).doSelectPageInfo(() ->
+                sysRoleMapper.selectByExample(buildExample(param)));
+        return pageInfo;
+    }
+
     private SysRoleExample buildExample(SysRole user) {
         SysRoleExample example = new SysRoleExample();
         SysRoleExample.Criteria criteria = example.createCriteria();
-
+        criteria.andDelFlagEqualTo(DelFlagEnum.N.getCode());
         example.setOrderByClause("create_time desc");
 
         return example;
