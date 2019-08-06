@@ -2,11 +2,8 @@ package cn.com.emindsoft.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
-import org.apache.shiro.crypto.hash.DefaultHashService;
-import org.apache.shiro.crypto.hash.HashRequest;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.util.SimpleByteSource;
 
 /**
  *  用户登录的时候将用户  明文密码 + salt 进行SHA-512迭代256次后的数据存储到数据库中

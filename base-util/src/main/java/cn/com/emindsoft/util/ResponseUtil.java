@@ -1,12 +1,10 @@
 package cn.com.emindsoft.util;
 
-import cn.com.emindsoft.entity.po.BaseEntity;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
 import com.github.pagehelper.PageInfo;
 import org.apache.poi.ss.formula.functions.T;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

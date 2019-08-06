@@ -1,10 +1,8 @@
 package cn.com.emindsoft.controller;
 
 import cn.com.emindsoft.entity.po.SysMenu;
-import cn.com.emindsoft.entity.po.User;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.service.SysMenuService;
-import cn.com.emindsoft.service.UserService;
 import cn.com.emindsoft.util.ResponseUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

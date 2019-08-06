@@ -1,6 +1,5 @@
 package cn.com.emindsoft.controller;
 
-import cn.com.emindsoft.entity.po.SysMenu;
 import cn.com.emindsoft.entity.po.SysPermission;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.service.SysPermissionService;

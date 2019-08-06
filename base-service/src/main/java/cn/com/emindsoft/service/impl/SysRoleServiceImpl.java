@@ -3,10 +3,8 @@ package cn.com.emindsoft.service.impl;
 import cn.com.emindsoft.entity.po.SysRole;
 import cn.com.emindsoft.entity.po.SysRoleExample;
 import cn.com.emindsoft.enums.DelFlagEnum;
-import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.mapper.SysRoleMapper;
 import cn.com.emindsoft.service.SysRoleService;
-import cn.com.emindsoft.util.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author tianyu

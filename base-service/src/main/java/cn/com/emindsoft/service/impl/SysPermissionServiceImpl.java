@@ -1,13 +1,10 @@
 package cn.com.emindsoft.service.impl;
 
-import cn.com.emindsoft.entity.po.SysMenu;
 import cn.com.emindsoft.entity.po.SysPermission;
 import cn.com.emindsoft.entity.po.SysPermissionExample;
 import cn.com.emindsoft.enums.DelFlagEnum;
-import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.mapper.SysPermissionMapper;
 import cn.com.emindsoft.service.SysPermissionService;
-import cn.com.emindsoft.util.ResponseUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
