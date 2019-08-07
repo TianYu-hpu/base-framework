@@ -37,4 +37,14 @@ public class ConfigConstant {
     public static final String WEB_STATIC_FILES = ".css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.crx,.xpi,.exe,.ipa,.apk";
 
     public static final String URL_SUFFIX = ".html";
+
+    /**
+     * @see ResponseUtil
+     */
+    public static final Integer STATUS_SUCCESS = 0;
+
+    /**
+     * @see ResponseUtil
+     */
+    public static final Integer STATUS_FAIL = 1;
 }

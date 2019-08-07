@@ -49,19 +49,19 @@ public class SysRoleController {
     @GetMapping("/{id}")
     public Map<String,Object> id(@PathVariable String id) {
         SysRole result = sysRoleService.findByPrimaryKey(id);
-        return ResponseUtil.response(0, "200", "success", result);
+        return ResponseUtil.success(result);
     }
 
     @PostMapping("/list")
     public Map<String,Object> list(@RequestBody SysRole record) {
         List<SysRole> sysRoleList = sysRoleService.findByExample(record);
-        return ResponseUtil.response(0, "200", "success", sysRoleList);
+        return ResponseUtil.success(sysRoleList);
     }
 
     @PostMapping("/page")
     public Map<String,Object> page(@RequestBody SysRole record) {
         PageInfo<SysRole> pageInfo = sysRoleService.findPageByExample(record);
-        return ResponseUtil.response(0, "200", "success", pageInfo);
+        return ResponseUtil.success(pageInfo);
     }
 
 

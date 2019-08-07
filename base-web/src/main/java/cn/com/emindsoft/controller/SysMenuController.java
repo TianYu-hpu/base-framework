@@ -49,19 +49,19 @@ public class SysMenuController {
     @GetMapping("/{id}")
     public Map<String,Object> id(@PathVariable String id) {
         SysMenu result = userService.findByPrimaryKey(id);
-        return ResponseUtil.response(0, "200", "SUCCESS", result);
+        return ResponseUtil.success(result);
     }
 
     @PostMapping("/list")
     public Map<String,Object> list(@RequestBody SysMenu record) {
         List<SysMenu> sysMenuList = userService.findByExample(record);
-        return ResponseUtil.response(0, "200", "success", sysMenuList);
+        return ResponseUtil.success(sysMenuList);
     }
 
     @PostMapping("/page")
     public Map<String,Object> page(@RequestBody SysMenu record) {
         PageInfo<SysMenu> pageInfo = userService.findPageByExample(record);
-        return ResponseUtil.response(0, "200", "success", pageInfo);
+        return ResponseUtil.success(pageInfo);
     }
 
 

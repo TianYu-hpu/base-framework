@@ -29,13 +29,13 @@ public class UserController {
     @PostMapping("/list")
     public Map<String,Object> list(@RequestBody User user) {
         List<User> userList = userService.findByExample(user);
-        return ResponseUtil.response(0, "200", "success", userList);
+        return ResponseUtil.success(userList);
     }
 
     @GetMapping("/{id}")
     public Map<String,Object> id(@PathVariable String id) {
         User result = userService.findByPrimaryKey(id);
-        return ResponseUtil.response(0, "200", "success", result);
+        return ResponseUtil.success(result);
     }
 
 }

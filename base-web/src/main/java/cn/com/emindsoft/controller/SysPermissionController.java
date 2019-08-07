@@ -49,18 +49,18 @@ public class SysPermissionController {
     @GetMapping("/{id}")
     public Map<String,Object> id(@PathVariable String id) {
         SysPermission result = sysPermissionService.findByPrimaryKey(id);
-        return ResponseUtil.response(0, "200", "SUCCESS", result);
+        return ResponseUtil.success(result);
     }
 
     @PostMapping("/list")
     public Map<String,Object> list(@RequestBody SysPermission record) {
         List<SysPermission> sysPermissionList = sysPermissionService.findByExample(record);
-        return ResponseUtil.response(0, "200", "success", sysPermissionList);
+        return ResponseUtil.success(sysPermissionList);
     }
 
     @PostMapping("/page")
     public Map<String,Object> page(@RequestBody SysPermission record) {
         PageInfo<SysPermission> pageInfo = sysPermissionService.findPageByExample(record);
-        return ResponseUtil.response(0, "200", "success", pageInfo);
+        return ResponseUtil.success(pageInfo);
     }
 }

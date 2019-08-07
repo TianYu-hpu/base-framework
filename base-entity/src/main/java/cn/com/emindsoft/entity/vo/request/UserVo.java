@@ -1,4 +1,4 @@
-package cn.com.emindsoft.entity.vo;
+package cn.com.emindsoft.entity.vo.request;
 
 import lombok.Data;
 

@@ -26,7 +26,7 @@ public enum ResponseCodeEnum implements BaseCodeEnum<ResponseCodeEnum, String>{
      * @author yunpeng.zhao
      *
      */
-    SUCCESS("00000", "成功"),
+    SUCCESS("200", "成功"),
     FAIL("99999", "失败"),
     /**
      * 系统类 01
