@@ -36,7 +36,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="sys_menu" domainObjectName="SysMenu">
+        <table tableName="role_permission" domainObjectName="RolePermission">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 
