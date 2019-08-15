@@ -1,5 +1,6 @@
-package cn.com.emindsoft.entity.po;
+package cn.com.emindsoft.entity.base;
 
+import cn.com.emindsoft.entity.base.PageBaseEntity;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -28,6 +29,8 @@ public class BaseEntity implements Serializable {
     private String updateBy;
 
     private Date updateTime;
+
+    private PageBaseEntity page;
 
     public void preInsertOrUpdate() {
         if(id == null) {

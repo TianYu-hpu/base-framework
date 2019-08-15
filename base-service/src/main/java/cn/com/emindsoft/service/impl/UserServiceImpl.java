@@ -59,6 +59,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByPrimaryKey(String id) {
+        userMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
     public User findByPrimaryKey(String id) {
         User result = userMapper.selectByPrimaryKey(id);
         return result;
@@ -159,6 +165,8 @@ public class UserServiceImpl implements UserService {
         update(user);
         return ResponseUtil.success(ResponseCodeEnum.RESET_PASSWORD_SUCCESS);
     }
+
+
 
     private UserExample buildExample(User user) {
         UserExample example = new UserExample();

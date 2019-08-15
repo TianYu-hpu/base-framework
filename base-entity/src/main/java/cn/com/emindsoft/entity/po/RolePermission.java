@@ -1,11 +1,12 @@
 package cn.com.emindsoft.entity.po;
 
+import cn.com.emindsoft.entity.base.BaseEntity;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class RolePermission extends BaseEntity{
+public class RolePermission extends BaseEntity {
     private String id;
 
     private String roleId;

@@ -1,10 +1,13 @@
 package cn.com.emindsoft.util;
 
+import cn.com.emindsoft.entity.base.PageBaseEntity;
+import cn.com.emindsoft.entity.mapstruct.PageInfoMap;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
 import com.github.pagehelper.PageInfo;
 import org.apache.poi.ss.formula.functions.T;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,16 +16,6 @@ import java.util.Map;
  * @Description: 给前端返回response
  */
 public class ResponseUtil {
-
-    /**
-     * 成功返回
-     * @param code
-     * @param message
-     * @return
-     */
-    public static Map<String, Object> success(String code, String message) {
-        return response(ConfigConstant.STATUS_SUCCESS, code, message);
-    }
 
     /**
      * 成功返回
@@ -35,11 +28,12 @@ public class ResponseUtil {
 
     /**
      * 成功返回
-     * @param page
+     * @param pageInfo 分页信息
+     * @param pageList
      * @return
      */
-    public static Map<String, Object> success(PageInfo<T> page) {
-        return response(ConfigConstant.STATUS_SUCCESS, ResponseCodeEnum.SUCCESS, page);
+    public static Map<String, Object> success(PageInfo pageInfo, List pageList) {
+        return response(ConfigConstant.STATUS_SUCCESS, ResponseCodeEnum.SUCCESS, pageInfo, pageList);
     }
 
     /**
@@ -48,7 +42,7 @@ public class ResponseUtil {
      * @return
      */
     public static Map<String, Object> success(Object data) {
-        return response(ConfigConstant.STATUS_SUCCESS, ResponseCodeEnum.SUCCESS, data);
+        return response(ConfigConstant.STATUS_SUCCESS, data);
     }
 
 
@@ -82,30 +76,28 @@ public class ResponseUtil {
         response.put("status", status);
         result.put("code", code);
         result.put("message", message);
-        result.put("item", data);
+        result.put("result", data);
         response.put("data", result);
         return response;
     }
 
-    private static Map<String,Object> response(Integer statusSuccess, ResponseCodeEnum responseCodeEnum, PageInfo page) {
+    private static Map<String,Object> response(Integer statusSuccess, ResponseCodeEnum responseCodeEnum, PageInfo<T> pageInfo, List<T> pageList) {
         Map<String, Object> response = new HashMap<>(10);
         Map<String, Object> data = new HashMap<>(10);
         response.put("status", statusSuccess);
         data.put("code", responseCodeEnum.getCode());
         data.put("message", responseCodeEnum.getDesc());
-        data.put("page", page);
+        PageBaseEntity pageVo = PageInfoMap.INSTANCE.pageInfoToPageVo(pageInfo);
+        data.put("page", pageVo);
+        data.put("pageList", pageList);
         response.put("data", data);
         return response;
     }
 
-    private static Map<String,Object> response(Integer statusSuccess, ResponseCodeEnum responseCodeEnum, Object data) {
+    private static Map<String,Object> response(Integer statusSuccess, Object data) {
         Map<String, Object> response = new HashMap<>(10);
-        Map<String, Object> result = new HashMap<>(10);
         response.put("status", statusSuccess);
-        result.put("code", responseCodeEnum.getCode());
-        result.put("message", responseCodeEnum.getDesc());
-        result.put("item", data);
-        response.put("data", result);
+        response.put("data", data);
         return response;
     }
 

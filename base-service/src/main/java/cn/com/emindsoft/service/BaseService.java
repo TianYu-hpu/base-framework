@@ -34,6 +34,12 @@ public interface BaseService<T> {
     T findByPrimaryKey(String id);
 
     /**
+     * 根据主键删除
+     * @param id
+     */
+    void deleteByPrimaryKey(String id);
+
+    /**
      * 查询列表
      * @param param
      * @return

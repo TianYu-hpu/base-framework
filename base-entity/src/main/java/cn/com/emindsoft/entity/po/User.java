@@ -1,6 +1,7 @@
 package cn.com.emindsoft.entity.po;
 
 
+import cn.com.emindsoft.entity.base.BaseEntity;
 import lombok.Data;
 
 import java.util.Date;

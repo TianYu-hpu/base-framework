@@ -1,5 +1,7 @@
 package cn.com.emindsoft.entity.po;
 
+import cn.com.emindsoft.entity.base.BaseEntity;
+
 import java.util.Date;
 
 public class SysMenu extends BaseEntity {

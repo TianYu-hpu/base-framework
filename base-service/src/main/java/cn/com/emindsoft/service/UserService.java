@@ -34,6 +34,7 @@ public interface UserService extends BaseService<User>{
      * @param id
      * @return
      */
+    @Override
     User findByPrimaryKey(String id);
     /**
      * 查询列表
@@ -66,4 +67,6 @@ public interface UserService extends BaseService<User>{
     Map<String, Object> updatePassword(User user);
 
     Map<String, Object> resetPassword(User user);
+
+    void deleteByPrimaryKey(String id);
 }

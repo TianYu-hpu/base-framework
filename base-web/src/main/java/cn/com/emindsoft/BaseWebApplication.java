@@ -99,7 +99,7 @@ public class BaseWebApplication {
         }
     }
 
-    @Bean
+    /*@Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         log.info("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -116,7 +116,8 @@ public class BaseWebApplication {
         filterChainDefinitionMap.put("/logout", "logout");
         //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
-        filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "anon");
+        //filterChainDefinitionMap.put("/**", "authc");
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
@@ -128,13 +129,13 @@ public class BaseWebApplication {
         return shiroFilterFactoryBean;
     }
 
-    /**
+    *//**
      * 凭证匹配器
      * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
      * ）
      *
      * @return
-     */
+     *//*
     @Bean
     public CustomHashedCredentialsMatcher hashedCredentialsMatcher() {
         CustomHashedCredentialsMatcher hashedCredentialsMatcher = new CustomHashedCredentialsMatcher(jedisCacheManager());
@@ -178,13 +179,13 @@ public class BaseWebApplication {
         sessionManager.setSessionIdCookieEnabled(true);
         sessionManager.setCacheManager(jedisCacheManager());
         return sessionManager;
-    }
+    }*/
 
     @Bean
     public JedisPool jedisPool() {
         return new JedisPool(redisHost, redisPort);
     }
-
+    /*
     @Bean
     public SimpleCookie simpleCookie() {
        SimpleCookie simpleCookie = new SimpleCookie();
@@ -198,13 +199,13 @@ public class BaseWebApplication {
      *
      * @param securityManager
      * @return
-     */
+     *//*
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
-    }
+    }*/
 
     @Bean(name = "simpleMappingExceptionResolver")
     public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver() {

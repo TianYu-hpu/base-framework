@@ -1,7 +1,8 @@
-package cn.com.emindsoft.entity.vo.request;
+package cn.com.emindsoft.entity.vo.resposne;
 
-import cn.com.emindsoft.entity.base.PageBaseEntity;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @author tianyu
@@ -10,7 +11,9 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class UserVo {
+public class UserResponse {
+
+    private String id;
 
     /**
      * 登录用户名
@@ -29,6 +32,17 @@ public class UserVo {
      */
     private String email;
 
-    private PageBaseEntity page;
+    private String activeFlag;
+
+    private String delFlag;
+
+    private Date createTime;
+
+    private String createBy;
+
+    private Date updateTime;
+
+    private String updateBy;
+
 
 }

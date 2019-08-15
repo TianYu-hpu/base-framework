@@ -19,7 +19,7 @@ import java.util.Map;
  * @date 2019-05-14
  * @description controller
  */
-@Controller
+@RestController
 @ResponseBody
 @RefreshScope
 @RequestMapping("/sys/menu")

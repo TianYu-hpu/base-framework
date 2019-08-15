@@ -98,7 +98,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from user
+    update user set del_flag = 'Y'
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cn.com.emindsoft.entity.po.UserExample" >
