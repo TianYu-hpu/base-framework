@@ -45,7 +45,13 @@ public class ResponseUtil {
         return response(ConfigConstant.STATUS_SUCCESS, data);
     }
 
-
+    /**
+     * 成功返回
+     * @return
+     */
+    public static Map<String,Object> success() {
+        return response(ConfigConstant.STATUS_SUCCESS, null);
+    }
 
     /**
      * 失败返回
@@ -100,5 +106,6 @@ public class ResponseUtil {
         response.put("data", data);
         return response;
     }
+
 
 }

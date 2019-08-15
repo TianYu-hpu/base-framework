@@ -1,7 +1,8 @@
 package cn.com.emindsoft.entity.mapstruct;
 
 import cn.com.emindsoft.entity.po.User;
-import cn.com.emindsoft.entity.vo.request.UserVo;
+import cn.com.emindsoft.entity.vo.request.UserAddVo;
+import cn.com.emindsoft.entity.vo.request.UserQueryVo;
 import cn.com.emindsoft.entity.vo.resposne.UserResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,7 +27,7 @@ public interface UserMap {
         @Mapping(source = "page.pageNo", target = "page.pageNo"),
         @Mapping(source = "page.pageSize", target = "page.pageSize")
     })
-    User voToPo(UserVo record);
+    User voToPo(UserQueryVo record);
 
     @Mappings({
             @Mapping(source = "id", target = "id"),
@@ -42,4 +43,13 @@ public interface UserMap {
     UserResponse poToUserResponse(User po);
 
     List<UserResponse> poListToVoList(List<User> pageList);
+
+    @Mappings({
+            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "username", target = "username"),
+            @Mapping(source = "phone", target = "phone"),
+            @Mapping(source = "email", target = "email"),
+            @Mapping(source = "password", target = "password")
+    })
+    User addVoToPo(UserAddVo userAddVo);
 }

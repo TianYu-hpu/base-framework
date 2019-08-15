@@ -10,7 +10,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class UserVo {
+public class UserQueryVo {
 
     /**
      * 登录用户名

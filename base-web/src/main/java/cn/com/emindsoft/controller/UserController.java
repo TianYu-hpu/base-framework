@@ -2,7 +2,7 @@ package cn.com.emindsoft.controller;
 
 import cn.com.emindsoft.entity.mapstruct.UserMap;
 import cn.com.emindsoft.entity.po.User;
-import cn.com.emindsoft.entity.vo.request.UserVo;
+import cn.com.emindsoft.entity.vo.request.UserQueryVo;
 import cn.com.emindsoft.entity.vo.resposne.UserResponse;
 import cn.com.emindsoft.service.UserService;
 import cn.com.emindsoft.util.ResponseUtil;
@@ -30,7 +30,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/list")
-    public Map<String,Object> page(@RequestBody UserVo user) {
+    public Map<String,Object> page(@RequestBody UserQueryVo user) {
         PageInfo<User> pageinfo = userService.findPageByExample(UserMap.INSTANCE.voToPo(user));
         List<User> pageList = pageinfo.getList();
         List<UserResponse> list = UserMap.INSTANCE.poListToVoList(pageList);
@@ -46,9 +46,8 @@ public class UserController {
 
     @GetMapping("/del/{id}")
     public Map<String,Object> delete(@PathVariable String id) {
-        User result = userService.deleteByPrimaryKey(id);
-        UserResponse response = UserMap.INSTANCE.poToUserResponse(result);
-        return ResponseUtil.success(response);
+        userService.deleteByPrimaryKey(id);
+        return ResponseUtil.success();
     }
 
 
