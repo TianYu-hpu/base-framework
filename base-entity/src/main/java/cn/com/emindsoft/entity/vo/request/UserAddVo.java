@@ -1,9 +1,7 @@
 package cn.com.emindsoft.entity.vo.request;
 
-import cn.com.emindsoft.entity.base.PageBaseEntity;
 import lombok.Data;
 
-import java.util.Date;
 
 /**
  * @author tianyu

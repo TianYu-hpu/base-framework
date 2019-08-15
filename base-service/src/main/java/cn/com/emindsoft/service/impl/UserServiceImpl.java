@@ -2,6 +2,7 @@ package cn.com.emindsoft.service.impl;
 
 import cn.com.emindsoft.entity.po.User;
 import cn.com.emindsoft.entity.po.UserExample;
+import cn.com.emindsoft.enums.ActiveFlagEnum;
 import cn.com.emindsoft.enums.DelFlagEnum;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.mapper.UserMapper;

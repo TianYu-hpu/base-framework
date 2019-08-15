@@ -2,6 +2,8 @@ package cn.com.emindsoft.entity.po;
 
 
 import cn.com.emindsoft.entity.base.BaseEntity;
+import cn.com.emindsoft.enums.ActiveFlagEnum;
+import cn.com.emindsoft.enums.DelFlagEnum;
 import lombok.Data;
 
 import java.util.Date;
@@ -34,6 +36,13 @@ public class User extends BaseEntity {
     private Date updateTime;
 
     private String updateBy;
+
+    @Override
+    public void preInsertOrUpdate() {
+        setActiveFlag(ActiveFlagEnum.ACTIVE.getCode());
+
+        super.preInsertOrUpdate();
+    }
 
     @Override
     public boolean equals(Object that) {

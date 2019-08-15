@@ -47,6 +47,12 @@ public class RolePermissionServiceImpl implements RolePermissionService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByPrimaryKey(String id) {
+        rolePermissionMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
     public List<RolePermission> findByExample(RolePermission param) {
         return rolePermissionMapper.selectByExample(buildExample(param));
     }

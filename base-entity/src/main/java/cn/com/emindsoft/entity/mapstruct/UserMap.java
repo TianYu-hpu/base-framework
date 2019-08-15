@@ -45,7 +45,6 @@ public interface UserMap {
     List<UserResponse> poListToVoList(List<User> pageList);
 
     @Mappings({
-            @Mapping(source = "id", target = "id"),
             @Mapping(source = "username", target = "username"),
             @Mapping(source = "phone", target = "phone"),
             @Mapping(source = "email", target = "email"),

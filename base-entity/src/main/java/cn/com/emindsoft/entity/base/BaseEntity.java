@@ -1,6 +1,7 @@
 package cn.com.emindsoft.entity.base;
 
 import cn.com.emindsoft.entity.base.PageBaseEntity;
+import cn.com.emindsoft.enums.DelFlagEnum;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -44,6 +45,7 @@ public class BaseEntity implements Serializable {
     private void preInsert() {
         setId(UUID.randomUUID().toString().replaceAll("-", ""));
         setCreateTime(new Date());
+        setDelFlag(DelFlagEnum.N.getCode());
         setUpdateTime(new Date());
     }
 

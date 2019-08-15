@@ -36,6 +36,9 @@ public interface SysMenuService extends BaseService<SysMenu>{
     @Override
     SysMenu findByPrimaryKey(String id);
 
+    @Override
+    void deleteByPrimaryKey(String id);
+
     /**
      * 查询列表
      * @param param

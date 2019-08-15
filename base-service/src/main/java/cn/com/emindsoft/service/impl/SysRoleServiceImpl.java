@@ -47,6 +47,12 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByPrimaryKey(String id) {
+        sysRoleMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
     public List<SysRole> findByExample(SysRole param) {
         return sysRoleMapper.selectByExample(buildExample(param));
     }

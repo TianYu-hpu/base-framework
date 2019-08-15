@@ -47,6 +47,12 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByPrimaryKey(String id) {
+        userRoleMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
     public List<UserRole> findByExample(UserRole param) {
         return userRoleMapper.selectByExample(buildExample(param));
     }

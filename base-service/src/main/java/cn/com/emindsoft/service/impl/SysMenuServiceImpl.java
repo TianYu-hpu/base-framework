@@ -49,6 +49,12 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByPrimaryKey(String id) {
+        sysMenuMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
     public List<SysMenu> findByExample(SysMenu param) {
         return sysMenuMapper.selectByExample(buildExample(param));
     }

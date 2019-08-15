@@ -49,6 +49,12 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByPrimaryKey(String id) {
+        sysPermissionMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
     public List<SysPermission> findByExample(SysPermission param) {
         return sysPermissionMapper.selectByExample(buildExample(param));
     }
