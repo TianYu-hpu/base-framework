@@ -17,13 +17,5 @@
       host: 192.168.0.35
       port: 6379
       database: 0
-  #mybatis的mapper配置文件
-  # mybatis配置文件所在路径
-  mybatis:
-    config-location: classpath*:mybatis-config.xml
-    type-aliases-package: cn.com.emindsoft.entity.po
-    # 所有的mapper映射文件
-    mapper-locations: classpath*:cn.com.emindsoft.mapper/*.xml
-    configuration:
-      map-underscore-to-camel-case: true
+
 

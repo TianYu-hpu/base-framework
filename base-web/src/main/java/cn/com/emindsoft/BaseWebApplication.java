@@ -20,6 +20,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import redis.clients.jedis.JedisPool;
 
@@ -34,6 +35,7 @@ import java.util.Properties;
  */
 @Slf4j
 @Configuration
+@CrossOrigin(origins = "*")
 @ComponentScan(basePackages = "cn.com.emindsoft")
 @MapperScan(basePackages = "cn.com.emindsoft.mapper")
 @EnableTransactionManagement

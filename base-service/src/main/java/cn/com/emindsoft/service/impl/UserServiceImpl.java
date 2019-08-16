@@ -61,6 +61,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public int updateByPrimaryKey(User user) {
+        user.preInsertOrUpdate();
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteByPrimaryKey(String id) {
         userMapper.deleteByPrimaryKey(id);
     }

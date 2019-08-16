@@ -1,6 +1,7 @@
 package cn.com.emindsoft.service;
 
 import cn.com.emindsoft.entity.po.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,9 @@ public interface UserService extends BaseService<User>{
     Map<String, Object> updatePassword(User user);
 
     Map<String, Object> resetPassword(User user);
+
+    @Transactional(rollbackFor = Exception.class)
+    int updateByPrimaryKey(User user);
 
     void deleteByPrimaryKey(String id);
 }

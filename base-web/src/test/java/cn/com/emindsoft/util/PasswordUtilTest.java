@@ -26,6 +26,10 @@ public class PasswordUtilTest {
         String cliperPassword = PasswordUtil.hashPassword("EmindSoft@123", "ebfa50fb91c526a6e4fc31c7ba22403d");
 
         log.info("salt:" + salt);
+        log.debug("debug =====================");
+        log.info("info =======================");
+        log.warn("warn =======================");
+        log.error("error =====================");
         log.info("password:" + cliperPassword);
     }
 

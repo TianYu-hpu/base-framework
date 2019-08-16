@@ -6,7 +6,21 @@ server:
       timeout: 60m
       cookie:
         name: base-framework
+#mybatis的mapper配置文件
+# mybatis配置文件所在路径
+mybatis:
+  config-location: classpath*:mybatis-config.xml
+  type-aliases-package: cn.com.emindsoft.entity.po
+  # 所有的mapper映射文件
+  mapper-locations: classpath*:cn.com.emindsoft.mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 spring:
   profiles:
     active: dev
+logging:
+  level:
+    root: error
+    cn.com.emindsoft.mapper: debug

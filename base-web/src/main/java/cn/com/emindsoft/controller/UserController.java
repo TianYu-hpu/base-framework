@@ -4,6 +4,7 @@ import cn.com.emindsoft.entity.mapstruct.UserMap;
 import cn.com.emindsoft.entity.po.User;
 import cn.com.emindsoft.entity.vo.request.UserQueryVo;
 import cn.com.emindsoft.entity.vo.resposne.UserResponse;
+import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.service.UserService;
 import cn.com.emindsoft.util.ResponseUtil;
 import com.github.pagehelper.PageInfo;
@@ -21,7 +22,6 @@ import java.util.Map;
  * @description controller
  */
 @RestController
-@ResponseBody
 @RefreshScope
 @RequestMapping("/user")
 public class UserController {
@@ -38,16 +38,25 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Map<String,Object> id(@PathVariable String id) {
+    public Map<String,Object> findByPrimaryKey(@PathVariable String id) {
         User result = userService.findByPrimaryKey(id);
         UserResponse response = UserMap.INSTANCE.poToUserResponse(result);
         return ResponseUtil.success(response);
     }
 
     @GetMapping("/del/{id}")
-    public Map<String,Object> delete(@PathVariable String id) {
+    public Map<String,Object> deleteByPrimaryKey(@PathVariable String id) {
         userService.deleteByPrimaryKey(id);
         return ResponseUtil.success();
+    }
+
+    @PostMapping("/edit")
+    public Map<String,Object> updateByPrimaryKey(@RequestBody User user) {
+        int rowCount = userService.updateByPrimaryKey(user);
+        if(1 == rowCount) {
+            return ResponseUtil.success(ResponseCodeEnum.SUCCESS);
+        }
+        return ResponseUtil.success(ResponseCodeEnum.FAIL);
     }
 
 
