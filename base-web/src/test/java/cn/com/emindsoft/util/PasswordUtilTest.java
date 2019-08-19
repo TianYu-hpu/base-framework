@@ -2,6 +2,8 @@ package cn.com.emindsoft.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.codec.Base64;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
 
 import java.security.interfaces.RSAPrivateKey;
@@ -31,6 +33,14 @@ public class PasswordUtilTest {
         log.warn("warn =======================");
         log.error("error =====================");
         log.info("password:" + cliperPassword);
+    }
+
+    @Test
+    public void encryptTranslateCloudPasswordTest() {
+        String salt = "11cc343c7000b61c85bc831097b5b61a";
+        String password = new SimpleHash("md5", "ChenNan@123", ByteSource.Util.bytes("chennan" + salt), 2).toHex();
+        log.info("salt:" + salt);
+        log.info("password:" + password);
     }
 
     @Test

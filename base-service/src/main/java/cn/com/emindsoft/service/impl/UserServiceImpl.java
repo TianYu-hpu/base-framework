@@ -1,12 +1,13 @@
 package cn.com.emindsoft.service.impl;
 
+import cn.com.emindsoft.service.JwtToken;
 import cn.com.emindsoft.entity.po.User;
 import cn.com.emindsoft.entity.po.UserExample;
-import cn.com.emindsoft.enums.ActiveFlagEnum;
 import cn.com.emindsoft.enums.DelFlagEnum;
 import cn.com.emindsoft.enums.ResponseCodeEnum;
 import cn.com.emindsoft.mapper.UserMapper;
 import cn.com.emindsoft.service.UserService;
+import cn.com.emindsoft.util.JwtUtil;
 import cn.com.emindsoft.util.PasswordUtil;
 import cn.com.emindsoft.util.ResponseUtil;
 import com.github.pagehelper.PageHelper;
@@ -17,7 +18,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageInfo<User> findPageByExample(User param) {
-        PageInfo<User> pageInfo = PageHelper.startPage(0, 10).doSelectPageInfo(() ->
+        PageInfo<User> pageInfo = PageHelper.startPage(param.getPage().getPageNo(), param.getPage().getPageSize()).doSelectPageInfo(() ->
                 userMapper.selectByExample(buildExample(param)));
         return pageInfo;
     }
@@ -118,7 +118,8 @@ public class UserServiceImpl implements UserService {
             return ResponseUtil.fail(ResponseCodeEnum.LOGIN_FAILED);
         }
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword(), true);
+        JwtToken token = new JwtToken(JwtUtil.createToken(user.getUsername(), user.getPassword()));
+        //UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword(), true);
         try {
             subject.login(token);
         } catch (IncorrectCredentialsException ice) {

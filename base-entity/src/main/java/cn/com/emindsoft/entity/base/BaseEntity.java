@@ -3,6 +3,7 @@ package cn.com.emindsoft.entity.base;
 import cn.com.emindsoft.entity.base.PageBaseEntity;
 import cn.com.emindsoft.enums.DelFlagEnum;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class BaseEntity implements Serializable {
     private PageBaseEntity page;
 
     public void preInsertOrUpdate() {
-        if(id == null) {
+        if(StringUtils.isEmpty(this.getId())) {
             preInsert();
         } else {
             preUpdate();
