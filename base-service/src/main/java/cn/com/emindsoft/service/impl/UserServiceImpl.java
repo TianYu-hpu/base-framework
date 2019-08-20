@@ -18,6 +18,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -118,8 +119,7 @@ public class UserServiceImpl implements UserService {
             return ResponseUtil.fail(ResponseCodeEnum.LOGIN_FAILED);
         }
         Subject subject = SecurityUtils.getSubject();
-        JwtToken token = new JwtToken(JwtUtil.createToken(user.getUsername(), user.getPassword()));
-        //UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword(), true);
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword(), true);
         try {
             subject.login(token);
         } catch (IncorrectCredentialsException ice) {
@@ -131,9 +131,10 @@ public class UserServiceImpl implements UserService {
         }
 
         User loginUser = findByUserName(user.getUsername());
-        subject.getSession().setAttribute("user", loginUser);
 
-        return ResponseUtil.success(ResponseCodeEnum.LOGIN_SUCCESS);
+        JwtToken jwtToken = new JwtToken(JwtUtil.createToken(loginUser.getId(), loginUser.getSalt()));
+
+        return ResponseUtil.success(ResponseCodeEnum.LOGIN_SUCCESS, jwtToken.getPrincipal());
     }
 
     /**

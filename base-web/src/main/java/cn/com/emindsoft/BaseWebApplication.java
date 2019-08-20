@@ -107,7 +107,7 @@ public class BaseWebApplication {
     }
 
     @Bean
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         log.info("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
@@ -167,26 +167,19 @@ public class BaseWebApplication {
     }
 
     @Bean
-    public JwtShiroRealm jwtRealm() {
-        JwtShiroRealm jwtShiroRealm = new JwtShiroRealm();
-        return jwtShiroRealm;
-    }
-
-
-    @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(jwtRealm());
-        //关闭shiro自带的session
+        securityManager.setRealm(curtomeShiroRealm());
+        //关闭shiro自带的session,不用session了
         DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
         DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
         defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
         subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
         securityManager.setSubjectDAO(subjectDAO);
-        /* securityManager.setSessionManager(customSessionManager());
+        /* securityManager.setSessionManager(customSessionManager());*/
         JedisCacheManager cacheManager = new JedisCacheManager();
         cacheManager.setCacheKeyPrefix("base_framework_");
-        securityManager.setCacheManager(cacheManager);*/
+        securityManager.setCacheManager(cacheManager);
         return securityManager;
     }
 

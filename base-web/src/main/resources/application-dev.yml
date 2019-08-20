@@ -31,4 +31,7 @@ spring:
 
 swagger:
   enable: true
+xxl:
+  conf:
+    env: dev
 

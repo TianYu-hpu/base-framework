@@ -18,4 +18,6 @@
       port: 6379
       database: 0
 
-
+xxl:
+  conf:
+    env: prod

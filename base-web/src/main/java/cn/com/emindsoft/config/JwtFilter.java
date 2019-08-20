@@ -1,9 +1,13 @@
 package cn.com.emindsoft.config;
 
+import cn.com.emindsoft.entity.po.User;
 import cn.com.emindsoft.service.JwtToken;
+import cn.com.emindsoft.service.UserService;
+import cn.com.emindsoft.util.JwtUtil;
 import cn.com.emindsoft.util.StringUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,7 +23,8 @@ import java.io.IOException;
 public class JwtFilter extends AccessControlFilter {
 
     private static final String AUTHORIZATION_HEADER = "Authorization";
-
+    @Autowired
+    private UserService userService;
     /**
      * 因为跨域发送过来的请求是首先是options请求
      * @param request
@@ -49,15 +54,15 @@ public class JwtFilter extends AccessControlFilter {
         //从请求头中获取header token
         String token = request.getHeader(AUTHORIZATION_HEADER);
         if(StringUtils.isEmpty(token)) {
-            loginError(servletResponse);
+            loginError(servletResponse, "token已过期");
         } else {
             try {
-                JwtToken jwtToken = new JwtToken(token);
-                Subject subject = getSubject(servletRequest, servletResponse);
-                subject.login(jwtToken);
+                String userId = JwtUtil.getUserIdFromToken(token);
+                User loginUser = userService.findByPrimaryKey(userId);
+                JwtUtil.verifyToken(loginUser.getSalt(), token);
                 return true;
             } catch (Exception e) {
-                loginError(servletResponse);
+                loginError(servletResponse, "token已过期");
             }
         }
 
@@ -70,10 +75,10 @@ public class JwtFilter extends AccessControlFilter {
         return false;
     }
 
-    private void loginError(ServletResponse servletResponse) {
+    private void loginError(ServletResponse servletResponse, String message) {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         try {
-            response.sendError(401);
+            response.sendError(401, message);
         } catch (IOException e) {
             e.printStackTrace();
         }

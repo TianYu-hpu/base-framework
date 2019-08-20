@@ -17,5 +17,7 @@
       host: 192.168.0.35
       port: 6379
       database: 0
-
+xxl:
+  conf:
+    env: test
 

@@ -108,4 +108,20 @@ public class ResponseUtil {
     }
 
 
+    /**
+     * 生成token
+     * @param responseCodeEnum
+     * @param token
+     * @return
+     */
+    public static Map<String,Object> success(ResponseCodeEnum responseCodeEnum, Object token) {
+        Map<String, Object> response = new HashMap<>(10);
+        Map<String, Object> result = new HashMap<>(10);
+        response.put("status", ConfigConstant.STATUS_SUCCESS);
+        result.put("code", responseCodeEnum.getCode());
+        result.put("message", responseCodeEnum.getDesc());
+        result.put("token", token);
+        response.put("data", result);
+        return response;
+    }
 }
