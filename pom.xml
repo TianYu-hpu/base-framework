@@ -8,7 +8,7 @@
         <version>2.1.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.com.emindsoft</groupId>
+    <groupId>cn.com.zenmaster</groupId>
     <artifactId>base-framework</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -131,6 +131,7 @@
         </dependencies>
     </dependencyManagement>
 
+
     <!--
     <build>
         <plugins>
@@ -139,10 +140,10 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.0.0</version>
                 <configuration>
-                    <dockerHost>http://docker.test.emindsoft.com.cn:2375</dockerHost>
-                    <imageName>docker.test.emindsoft.com.cn:5000/config-center-web</imageName>
+                    <dockerHost>http://docker.test.zenmaster.com.cn:2375</dockerHost>
+                    <imageName>docker.test.zenmaster.com.cn:5000/config-center-web</imageName>
                     <baseImage>java:8-jre-alpine</baseImage>
-                    <maintainer>田雨-tianyu@emindsoft.com.cn</maintainer>
+                    <maintainer>田雨-tianyu.hpu@gmail.com</maintainer>
                     <exposes>
                         <expose>8080</expose>
                     </exposes>

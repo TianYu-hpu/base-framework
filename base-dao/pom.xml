@@ -4,19 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>base-framework</artifactId>
-        <groupId>cn.com.emindsoft</groupId>
+        <groupId>cn.com.zenmaster</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.com.emindsoft</groupId>
+    <groupId>cn.com.zenmaster</groupId>
     <artifactId>base-dao</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>cn.com.emindsoft</groupId>
+            <groupId>cn.com.zenmaster</groupId>
             <artifactId>base-entity</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

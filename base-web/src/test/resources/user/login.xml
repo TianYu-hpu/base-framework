@@ -28,6 +28,6 @@
   <option name="haveTextToSend" value="true" />
   <option name="haveFileToSend" value="false" />
   <option name="isFileUpload" value="false" />
-  <option name="textToSend" value="{   &quot;username&quot;:&quot;tianyu&quot;,   &quot;password&quot;:&quot;EmindSoft@123&quot;}" />
+  <option name="textToSend" value="{   &quot;username&quot;:&quot;tianyu&quot;,   &quot;password&quot;:&quot;zenmaster@123&quot;}" />
   <option name="filesToSend" value="" />
 </RestClientRequest>

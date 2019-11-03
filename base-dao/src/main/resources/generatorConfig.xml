@@ -17,22 +17,22 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://192.168.0.35:3306/base_framework?useSSL=false"
                         userId="root"
-                        password="EmindSoft@123">
+                        password="zenmaster@123">
         </jdbcConnection>
 
         <!--load targetProject from properties-->
-        <javaModelGenerator targetPackage="cn.com.emindsoft.entity.po" targetProject="../base-entity/src/main/java">
+        <javaModelGenerator targetPackage="cn.com.zenmaster.entity.po" targetProject="../base-entity/src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!--load targetProject from properties-->
-        <sqlMapGenerator targetPackage="cn.com.emindsoft.mapper" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="cn.com.zenmaster.mapper" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!--load targetProject from properties-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.emindsoft.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.com.zenmaster.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
