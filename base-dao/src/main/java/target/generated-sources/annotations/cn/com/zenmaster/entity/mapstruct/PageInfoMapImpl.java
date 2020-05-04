@@ -6,7 +6,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2019-11-03T19:51:02+0800",
+    date = "2020-05-04T19:31:55+0800",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 1.8.0_181 (Oracle Corporation)"
 )
 public class PageInfoMapImpl implements PageInfoMap {

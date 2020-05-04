@@ -164,7 +164,7 @@ public class BaseWebApplication {
         return myShiroRealm;
     }
 
-    /*@Bean
+    @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(curtomeShiroRealm());
@@ -174,12 +174,12 @@ public class BaseWebApplication {
         defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
         subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
         securityManager.setSubjectDAO(subjectDAO);
-        *//* securityManager.setSessionManager(customSessionManager());*//*
+        securityManager.setSessionManager(customSessionManager());
         JedisCacheManager cacheManager = new JedisCacheManager();
         cacheManager.setCacheKeyPrefix("base_framework_");
         securityManager.setCacheManager(cacheManager);
         return securityManager;
-    }*/
+    }
 
     @Bean
     public JedisCacheManager jedisCacheManager() {
