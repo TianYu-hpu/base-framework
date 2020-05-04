@@ -1,6 +1,11 @@
 HELP.md
 /target/
 .idea/
+base-dao/target
+base-entity/target
+base-service/target
+base-util/target
+base-web/target
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
