@@ -1,11 +1,8 @@
 HELP.md
 /target/
 .idea/
-base-dao/target
-base-entity/target
-base-service/target
-base-util/target
-base-web/target
+base-framework.iml
+target/**
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -21,19 +18,6 @@ base-web/target
 *.iws
 *.ipr
 .idea/
-base-dao/base-dao.iml
-base-dao/target/
-base-entity/.mvn
-base-entity/target/
-base-entity/base-entity.iml
-base-service/.mvn/
-base-service/target/
-base-service/base-service.iml
-base-util/base-util.iml
-base-util/target/
-base-web/.mvn/
-base-web/target/
-base-web/base-web.iml
 
 ### NetBeans ###
 /nbproject/private/

@@ -18,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -38,11 +41,13 @@ import java.util.Properties;
  * @description base web application
  */
 @Slf4j
+@RefreshScope
 @Configuration
+@EnableDiscoveryClient
 @CrossOrigin(origins = "*")
 @MapperScan(basePackages = "cn.com.zenmaster.mapper")
 @EnableTransactionManagement
-@SpringBootApplication()
+@SpringBootApplication(exclude = KafkaAutoConfiguration.class)
 public class BaseWebApplication {
 
     @Autowired
